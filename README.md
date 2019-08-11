@@ -1,0 +1,1 @@
+A browser-based adaptation of Lanterns, a roll & write created by D.Di Maggio https://boardgamegeek.com/thread/2202582/wip-lantern-solitaire-adventure-roll-write-game-de
