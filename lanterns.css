@@ -35,14 +35,15 @@ li {
 	display: inline;
 }
 
-.dice {
-	/*border: 1px solid red;*/
-	/*padding: .25em;*/
-	/*margin: .05em;*/
-	text-align: center;
-	display: inline;
+.completed {
+	text-decoration: line-through;
 }
 
-.boxb {
-	font-weight: bold;
+.small {
+	font-size: 50%;
+}
+
+.medium {
+	font-size: 75%;
+	padding: 5px;
 }
