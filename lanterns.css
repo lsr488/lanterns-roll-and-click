@@ -1,0 +1,48 @@
+body {
+
+}
+
+li {
+	margin-bottom: .5em;
+	font-family: monospace;
+	font-size: 150%;
+}
+
+#sheet {
+	width: 800px;
+	margin: auto;
+}
+
+#abilities div {
+	margin-bottom: .5em;
+	font-size: 150%;
+}
+
+#abilities {
+	float: right;	
+}
+
+#path {
+	float: left;
+}
+
+#exp div {
+	margin-left: 1em;
+}
+
+.underline {
+	text-decoration: underline;
+	display: inline;
+}
+
+.dice {
+	/*border: 1px solid red;*/
+	/*padding: .25em;*/
+	/*margin: .05em;*/
+	text-align: center;
+	display: inline;
+}
+
+.boxb {
+	font-weight: bold;
+}
