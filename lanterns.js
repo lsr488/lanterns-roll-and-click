@@ -22,17 +22,19 @@ assignedAbilities.forEach(function(item) {
 					const circle = document.createElement("i");
 					circle.setAttribute("class", "far fa-circle medium");
 					circle.setAttribute("completed", "false");
+					circle.addEventListener("click", function() {
+						circle.setAttribute("class", "fas fa-circle medium");
+						circle.setAttribute("completed", "true");
+					});
 					parentElement.append(circle);
 				}
-			} else {
+			}	else {
 				alert("Choose a number 1 through 6.");
 			}	
 			parentElement.setAttribute("set", "true");
 			console.log("attribute set");
 		}
-
 	});
-
 });
 
 completedPaths.forEach(function(item) {
