@@ -8,21 +8,16 @@ const assignedAbilities = [...abilities];
 
 assignedAbilities.forEach(function(item) {
 	item.addEventListener("click", function(e) {
-		// console.log(e.target); // DELETE ME	
 		parentElement = e.target.parentNode;
-		console.log(parentElement); // DELETE ME	
 
 		if(parentElement.getAttribute("set") === "false") {
-			console.log("not set"); // DELETE ME	
 			let input = prompt("How many circles? Enter a number 1 through 6.", "2");
 			if(input > 0 && input < 7) {
 				for(let i = 0; i < input; i++) {
 					const circle = document.createElement("i");
-					circle.setAttribute("class", "far fa-circle medium");
-					circle.setAttribute("completed", "false");
+					setAbility(circle);
 					circle.addEventListener("click", function() {
-						circle.setAttribute("class", "fas fa-circle medium");
-						circle.setAttribute("completed", "true");
+						useAbility(circle);
 					});
 					parentElement.append(circle);
 				}
@@ -30,37 +25,37 @@ assignedAbilities.forEach(function(item) {
 				alert("Choose a number 1 through 6.");
 			}	
 			parentElement.setAttribute("set", "true");
-			console.log("attribute set");
 		}
 	});
 });
 
 completedPaths.forEach(function(item) {
 	item.addEventListener("click", function(e) {
-		// console.log(e.target); // DELETE ME
-
-		if(item.getAttribute("completed") === "false") {
-			item.setAttribute("class", "fas fa-circle small");
-			item.setAttribute("completed", "true");
-			console.log(e.target); // DELETE ME			
-		}
-
+	if(item.getAttribute("completed") === "false") {
+		completePath(item);
+	}
 	});
 });
 
 completedExp.forEach(function(item) {
 	item.addEventListener("click", function(e) {
-		// console.log(e.target); // DELETE ME
-		
-		if(item.getAttribute("completed") === "false") {
-			item.setAttribute("class", "fas fa-circle medium");
-			item.setAttribute("completed", "true");
-			console.log(e.target); // DELETE ME			
-		}	
-
+	if(item.getAttribute("completed") === "false") {
+		useAbility(item);
+	}
 	});
 });
 
-function markComplete() {}
+function completePath(item) {
+		item.setAttribute("class", "fas fa-circle small");
+		item.setAttribute("completed", "true");
+}
 
-function checkIfComplete() {}
+function useAbility(item) {
+		item.setAttribute("class", "fas fa-circle medium");
+		item.setAttribute("completed", "true");
+}
+
+function setAbility(item) {
+	item.setAttribute("class", "far fa-circle medium");
+	item.setAttribute("completed", "false");
+}
