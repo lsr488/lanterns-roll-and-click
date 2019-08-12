@@ -6,8 +6,6 @@ const completedPaths = [...pathCircles];
 const completedExp = [...expCircles];
 const assignedAbilities = [...abilities];
 
-console.log(abilities);
-
 assignedAbilities.forEach(function(item) {
 	item.addEventListener("click", function(e) {
 		// console.log(e.target); // DELETE ME	
@@ -55,7 +53,7 @@ completedExp.forEach(function(item) {
 		// console.log(e.target); // DELETE ME
 		
 		if(item.getAttribute("completed") === "false") {
-			item.setAttribute("class", "fas fa-circle");
+			item.setAttribute("class", "fas fa-circle medium");
 			item.setAttribute("completed", "true");
 			console.log(e.target); // DELETE ME			
 		}	
