@@ -1,20 +1,44 @@
 body {
+	background-color: lightsteelblue;
+	font-family: monospace;
+}
 
+hr {
+	background-color: black;
 }
 
 li {
-	margin-bottom: .5em;
-	font-family: monospace;
+	margin-bottom: .25em;
 	font-size: 150%;
 }
 
+#buttons {
+	position: absolute;
+	top: 500px;
+	left: 25%;
+}
+
+#kept-dice {
+	height: 60px;
+	margin-bottom: .5em;
+	/*display: inline;*/
+	/*float: left;*/
+}
+
+#rolled-dice {
+	height: 60px;
+	margin-bottom: .5em;
+/*	display: inline;
+*/	/*float: right;*/
+}
+
 #sheet {
-	width: 800px;
+	width: 700px;
 	margin: auto;
 }
 
 #abilities div {
-	margin-bottom: .5em;
+	margin-top: .25em;
 	font-size: 150%;
 }
 
@@ -45,5 +69,10 @@ li {
 
 .medium {
 	font-size: 75%;
+	padding: 5px;
+}
+
+.large {
+	font-size: 200%;
 	padding: 5px;
 }
