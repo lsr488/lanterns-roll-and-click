@@ -87,25 +87,21 @@ function countUsedExperienceCircles() {
 	if(count === 5 || count === 9 || count === 12) {
 		increaseAbility();
 	}
-	console.log(count);
 }
 
 function increaseAbility() {
-	console.log("Exp row completed! Increase an ability of your choice by 1.");
-	let input = prompt("Exp row completed! Increase an ability of your choice by 1: flip, inc-dec, reroll-1, reroll-any");
+	let input = prompt("Experience row completed! Increase an ability of your choice by 1: flip, inc-dec, reroll-1, reroll-any");
 
 	input = input.toLowerCase();
 	appendAbility(input);
 }
 
 function appendAbility(input) {
-	console.log(input);
 	const selectedAbility = document.getElementById(input);
 	const circle = document.createElement("i");	
 
 	for(let i = 0; i < abilities.length; i++) {
 		if(abilities[i].id === input) {
-			console.log("user input is " + input);
 			setAbility(circle);
 			selectedAbility.append(circle);
 		}
