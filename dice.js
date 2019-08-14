@@ -2,6 +2,7 @@
 const buttonRollAllDice = document.getElementById("roll-dice");
 const buttonResetRolledDice = document.getElementById("reset-rolls");
 const buttonResetBoth = document.getElementById("reset-both");
+const buttonChooseDice = document.getElementById("choose-dice");
 const keptDiceDisplay = document.getElementById("kept-dice");
 const rolledDiceDisplay = document.getElementById("rolled-dice");
 
@@ -20,6 +21,26 @@ buttonResetBoth.addEventListener("click", function() {
 	resetBoth();
 });
 
+buttonChooseDice.addEventListener("click", function() {
+	let diceChoice = [];
+	let input = prompt("Input the pip value(s) of the die/dice you want to keep. To choose multiple at once, separate with commas. Numbers 1-6.")
+
+	if(input.includes(",")) {
+		input = input.split(",");
+
+		for(let i = 0; i < input.length; i++) {
+			input[i] = Number.parseInt(input[i], 10);
+		}
+
+		diceChoice = input;
+	} else {
+		input = Number.parseInt(input, 10);
+		diceChoice.push(input);
+	}
+	
+	chooseDice(diceChoice);
+});
+
 function rollDice(numOfDice = "6") {
 	for(let i = 0; i < numOfDice; i ++) {
 		rollDie();
@@ -32,7 +53,8 @@ function rollDie() {
 	return rolls.push(roll);
 }
 
-function chooseDice(...num) {
+function chooseDice(num) {
+	console.log(num); // DELETE ME
 	for(let i = 0; i < num.length; i++) {
 		keptDice.push(num[i]);
 	}
