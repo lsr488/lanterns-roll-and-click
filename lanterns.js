@@ -64,14 +64,14 @@ function completePath(item) {
 function useAbility(item) {
 		item.setAttribute("class", "fas fa-circle medium");
 		item.setAttribute("completed", "true");
-		console.log(item.parentNode); // DELETE ME
+		console.log(item); // DELETE ME
 
 		// ability circles that affect dice
 		if(item.parentNode.id == "flip") {
 			flipAbility();
 		}
 		if(item.parentNode.id === "inc-dec") {
-			incDec();
+			incDec(item);
 		}
 		if(item.parentNode.id === "reroll-1") {
 			reRollOneDie();
@@ -87,6 +87,12 @@ function setAbility(item) {
 	item.addEventListener("click", function() {
 		useAbility(item);
 	});
+}
+
+function resetAbility(item) {
+	// item gets passed  from useAbility to the ability function and finally to resetAbility, to get the right circle to reset
+	item.setAttribute("class", "far fa-circle medium");
+	item.setAttribute("completed", "false");
 }
 
 function countUsedExperienceCircles() {

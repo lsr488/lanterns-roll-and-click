@@ -26,7 +26,7 @@ function flipAbility() {
 	chooseDice(flippedValue);
 }
 
-function incDec() {
+function incDec(clickedElement) {
 	let input = prompt('Which die do you want to increment up or down? Ex: "5 +" or "5 -"');
 	let incDecValue = [];
 
@@ -34,17 +34,20 @@ function incDec() {
 	input.sort();
 	input[1] = Number.parseInt(input[1], 10);
 
-	if(input.includes("+")) {
-		incDecValue[0] = input[1] + 1;
+	if(input[0] === "+" || input[0] === "-") {
+		if(input.includes("+")) {
+			incDecValue[0] = input[1] + 1;
+		}
+		if(input.includes("-")) {
+			incDecValue[0] = input[1] - 1;
+		}
+		input.shift();
+		removeChosenDice(input);
+		chooseDice(incDecValue);
+	} else {
+		alert("You forgot to include + or -");
+		resetAbility(clickedElement)
 	}
-
-	if(input.includes("-")) {
-		incDecValue[0] = input[1] - 1;
-	}
-
-	input.shift();
-	removeChosenDice(input);
-	chooseDice(incDecValue);
 }
 
 function reRollOneDie() {
