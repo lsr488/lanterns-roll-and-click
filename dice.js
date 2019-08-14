@@ -66,7 +66,6 @@ function chooseDice(num) {
 	}
 	displayKeptDice();
 	displayRolls();
-	// removeChosenDice(num);
 }
 
 function removeChosenDice(input) {

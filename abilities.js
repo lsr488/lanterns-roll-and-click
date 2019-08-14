@@ -46,3 +46,12 @@ function incDec() {
 	removeChosenDice(input);
 	chooseDice(incDecValue);
 }
+
+function reRollOneDie() {
+	let input = prompt("Which die do you want to re-roll?");
+	input = [Number.parseInt(input, 10)];
+
+	removeChosenDice(input);
+	rollDie();
+	displayRolls();
+}

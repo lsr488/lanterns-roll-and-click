@@ -73,6 +73,9 @@ function useAbility(item) {
 		if(item.parentNode.id === "inc-dec") {
 			incDec();
 		}
+		if(item.parentNode.id === "reroll-1") {
+			reRollOneDie();
+		}
 }
 
 function setAbility(item) {
