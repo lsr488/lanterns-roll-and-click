@@ -1,10 +1,9 @@
 body {
-	background-color: lightsteelblue;
+	/*background-color: lightsteelblue;*/
+	background: rgb(186, 16, 6);
+	/*background: radial-gradient(circle, rgba(186,16,6,1) 0%, rgba(231,102,19,1) 63%, rgba(255,223,0,1) 100%);*/
+	background: linear-gradient(90deg, rgba(186,16,6,1) 0%, rgba(231,102,19,1) 45%, rgba(255,223,0,1) 100%);
 	font-family: monospace;
-}
-
-hr {
-	background-color: black;
 }
 
 li {
