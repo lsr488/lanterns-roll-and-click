@@ -12,6 +12,7 @@ campExp.forEach(function(item) {
 	item.addEventListener("click", function(e) {
 		if(item.getAttribute("completed") === "false") {
 			useAbility(item);
+			appendAbility("reroll-any");
 		}
 	});
 });
@@ -51,6 +52,7 @@ completedPaths.forEach(function(item) {
 		if(item.getAttribute("completed") === "false") {
 			completePath(item);
 		}
+		countCompletedPathCircles();
 	});
 });
 
@@ -108,4 +110,22 @@ function appendAbility(input) {
 	}
 }
 
-countUsedExperienceCircles();
+function countCompletedPathCircles() {
+	let count = 0;
+
+	for(let i = 0; i < completedPaths.length; i++) {
+		for(let j = 0; j < completedPaths[i].attributes.length; j++) {
+			if(completedPaths[i].attributes[j].name == "completed") {
+				if(completedPaths[i].attributes[j].value === "true") {
+					count++;					
+				}		
+			} 
+		}	
+	}
+	
+	console.log("path count:", count);
+	
+	if(count === 8) {
+		console.log("You win! Reload page to play again.");
+	}
+}
