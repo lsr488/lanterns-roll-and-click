@@ -66,6 +66,18 @@ function chooseDice(num) {
 	}
 	displayKeptDice();
 	displayRolls();
+	removeChosenDice(num);
+}
+
+function removeChosenDice(input) {
+	let chosenDice = input;
+
+	for(let i = 0; i < chosenDice.length; i++) {
+		rolls.includes(chosenDice[i]);
+		let index = rolls.indexOf(chosenDice[i]);
+		rolls.splice(index, 1);
+	}
+	displayRolls();
 }
 
 function displayRolls() {
