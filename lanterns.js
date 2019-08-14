@@ -35,7 +35,7 @@ assignedAbilities.forEach(function(item) {
 			if(input > 0 && input < 7) {
 				for(let i = 0; i < input; i++) {
 					const circle = document.createElement("i");
-					setAbility(circle);
+					setAbility(circle); // creates circle and calls useAbility (changes to closed circle)
 					parentElement.append(circle);
 				}
 			}	else {
@@ -64,6 +64,10 @@ function completePath(item) {
 function useAbility(item) {
 		item.setAttribute("class", "fas fa-circle medium");
 		item.setAttribute("completed", "true");
+		console.log(item.parentNode);
+		if(item.parentNode.id == "flip") {
+			flipAbility();
+		}
 }
 
 function setAbility(item) {

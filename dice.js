@@ -44,8 +44,8 @@ buttonChooseDice.addEventListener("click", function() {
 		input = Number.parseInt(input, 10);
 		diceChoice.push(input);
 	}
-
 	chooseDice(diceChoice);
+	removeChosenDice(diceChoice);
 });
 
 function rollDice(numOfDice = "6") {
@@ -66,11 +66,12 @@ function chooseDice(num) {
 	}
 	displayKeptDice();
 	displayRolls();
-	removeChosenDice(num);
+	// removeChosenDice(num);
 }
 
 function removeChosenDice(input) {
-	let chosenDice = input;
+// currently, if chosen die doesn't exist in rolls, then last die is spliced out regardless of value
+	let chosenDice = input; // needs to be an array
 
 	for(let i = 0; i < chosenDice.length; i++) {
 		rolls.includes(chosenDice[i]);
@@ -82,6 +83,7 @@ function removeChosenDice(input) {
 
 function displayRolls() {
 	rolls.sort();
+	console.log(rolls); // DELETE ME
 	rolledDiceDisplay.innerHTML = "Rolled Dice: <br/>" + changeDiceNumbersToIcons(rolls, rolledDiceDisplay);
 }
 
