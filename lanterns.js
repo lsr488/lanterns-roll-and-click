@@ -64,7 +64,7 @@ function completePath(item) {
 function useAbility(item) {
 		item.setAttribute("class", "fas fa-circle medium");
 		item.setAttribute("completed", "true");
-		console.log(item.parentNode);
+		console.log(item.parentNode); // DELETE ME
 
 		// ability circles that affect dice
 		if(item.parentNode.id == "flip") {
@@ -75,6 +75,9 @@ function useAbility(item) {
 		}
 		if(item.parentNode.id === "reroll-1") {
 			reRollOneDie();
+		}
+		if(item.parentNode.id === "reroll-any") {
+			reRollAllDice();
 		}
 }
 

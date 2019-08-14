@@ -55,3 +55,23 @@ function reRollOneDie() {
 	rollDie();
 	displayRolls();
 }
+
+function reRollAllDice() {
+	let input = prompt("Which dice do you want to re-roll? Separate with commas.");
+
+	input = input.split(",");
+
+	for(let i = 0; i < input.length; i++) {
+		input[i] = Number.parseInt(input[i], 10);
+	}
+
+	console.log(input);
+
+	// remove 
+	removeChosenDice(input);
+
+	// reroll # of dice
+	rollDice(input.length);
+
+
+}
