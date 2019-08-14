@@ -65,8 +65,13 @@ function useAbility(item) {
 		item.setAttribute("class", "fas fa-circle medium");
 		item.setAttribute("completed", "true");
 		console.log(item.parentNode);
+
+		// ability circles that affect dice
 		if(item.parentNode.id == "flip") {
 			flipAbility();
+		}
+		if(item.parentNode.id === "inc-dec") {
+			incDec();
 		}
 }
 
