@@ -12,24 +12,25 @@ li {
 	font-size: 150%;
 }
 
+#window {
+	width: 800px;
+	margin: auto;
+}
+
 #buttons {
 	position: absolute;
 	top: 500px;
-	left: 25%;
+	/*left: 25%;*/
 }
 
 #kept-dice {
 	height: 60px;
 	margin-bottom: .5em;
-	/*display: inline;*/
-	/*float: left;*/
 }
 
 #rolled-dice {
 	height: 60px;
 	margin-bottom: .5em;
-/*	display: inline;
-*/	/*float: right;*/
 }
 
 #sheet {
