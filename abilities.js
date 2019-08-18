@@ -23,10 +23,12 @@ function flipAbility() {
 
 	input = [Number.parseInt(input, 10)];	
 	removeChosenDice(input);
+	// rolls.push(flippedValue);
 	chooseDice(flippedValue);
 }
 
 function incDec(clickedElement) {
+	// clickedElement comes from useAbility in lanterns.js
 	let input = prompt('Which die do you want to increment up or down? Ex: "5 +" or "5 -"');
 	let incDecValue = [];
 
@@ -43,20 +45,34 @@ function incDec(clickedElement) {
 		}
 		input.shift();
 		removeChosenDice(input);
+		// rolls.push(incDecValue[0]);
 		chooseDice(incDecValue);
 	} else {
 		alert("You forgot to include + or -");
-		resetAbility(clickedElement)
+		resetAbility(clickedElement);
 	}
 }
 
-function reRollOneDie() {
+function reRollOneDie(clickedElement) {
+	// clickedElement comes from useAbility in lanterns.js
 	let input = prompt("Which die do you want to re-roll?");
-	input = [Number.parseInt(input, 10)];
+	input = input.split(",");
 
-	removeChosenDice(input);
-	rollDie();
-	displayRolls();
+	if(input.length > 1) {
+		alert("You can only re-roll 1 die.");
+		resetAbility(clickedElement);
+	} else {
+		input = [Number.parseInt(input, 10)];
+	}
+
+	if(!rolls.includes(input[0])) {
+		alert("Choice doesn't exist, try again.");
+		resetAbility(clickedElement);
+	} else {
+		removeChosenDice(input);
+		rollDie();
+		displayRolls();
+	}
 }
 
 function reRollAllDice() {
@@ -68,13 +84,11 @@ function reRollAllDice() {
 		input[i] = Number.parseInt(input[i], 10);
 	}
 
-	console.log(input);
+	// console.log(input); // DELETE ME
 
 	// remove 
 	removeChosenDice(input);
 
 	// reroll # of dice
 	rollDice(input.length);
-
-
 }

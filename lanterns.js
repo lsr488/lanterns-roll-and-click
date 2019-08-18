@@ -91,7 +91,7 @@ function useAbility(item) {
 			incDec(item);
 		}
 		if(item.parentNode.id === "reroll-1") {
-			reRollOneDie();
+			reRollOneDie(item);
 		}
 		if(item.parentNode.id === "reroll-any") {
 			reRollAllDice();
@@ -107,7 +107,7 @@ function setAbility(item) {
 }
 
 function resetAbility(item) {
-	// item gets passed  from useAbility to the ability function and finally to resetAbility, to get the right circle to reset
+	// item gets passed from useAbility to the ability function and finally to resetAbility, to get the right circle to reset
 	item.setAttribute("class", "far fa-circle medium");
 	item.setAttribute("completed", "false");
 }
