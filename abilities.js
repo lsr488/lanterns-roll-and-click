@@ -76,19 +76,25 @@ function reRollOneDie(clickedElement) {
 }
 
 function reRollAnyDice() {
-	let input = prompt("Which dice do you want to re-roll? Separate with commas.");
+	let input = prompt("Which dice do you want to re-roll? Input values, separated by commas. Or type ALL to re-roll all remaining dice.");
 
-	input = input.split(",");
+	if(input = "all") {
+		let remaining = rolls.length;
+		resetRolls();
+		rollDice(remaining);
+	} else {
+		input = input.split(",");
 
-	for(let i = 0; i < input.length; i++) {
-		input[i] = Number.parseInt(input[i], 10);
+		for(let i = 0; i < input.length; i++) {
+			input[i] = Number.parseInt(input[i], 10);
+		}
+
+		// console.log(input); // DELETE ME
+
+		// remove 
+		removeChosenDice(input);
+
+		// reroll # of dice
+		rollDice(input.length);
 	}
-
-	// console.log(input); // DELETE ME
-
-	// remove 
-	removeChosenDice(input);
-
-	// reroll # of dice
-	rollDice(input.length);
 }
