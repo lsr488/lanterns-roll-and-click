@@ -5,9 +5,13 @@ const abilities = document.querySelectorAll('[ability="true"]');
 const completedPaths = [...pathCircles];
 const completedExp = [...expCircles];
 const assignedAbilities = [...abilities];
+
+// excludes camp exp circle from ability circle array
 const shortCompletedExp = completedExp.slice(1);
+// camp exp circl only
 const campExp = completedExp.slice(0,1);
 
+// add event listeners to camp abilities
 campExp.forEach(function(item) {
 	item.addEventListener("click", function(e) {
 		if(item.getAttribute("completed") === "false") {
@@ -17,19 +21,25 @@ campExp.forEach(function(item) {
 	});
 });
 
+// add event listeners to ability circles
+// counts when ability circle is used
 shortCompletedExp.forEach(function(item) {
 	item.addEventListener("click", function(e) {
 		if(item.getAttribute("completed") === "false") {
 			useAbility(item);
 		}
 		countUsedExperienceCircles();
+		// isGameOver(assignedAbilities);
 	});
 });
 
+// sets circles to each ability
+// adds event listeners to ability circles
 assignedAbilities.forEach(function(item) {
 	item.addEventListener("click", function(e) {
 		parentElement = e.target.parentNode;
 
+		// sets number of circles
 		if(parentElement.getAttribute("set") === "false") {
 			const input = prompt("How many circles? Enter a number 1 through 6.", "1");
 			if(input > 0 && input < 7) {
@@ -47,12 +57,15 @@ assignedAbilities.forEach(function(item) {
 	});
 });
 
+// add event listeners to path circles
+// counts path circles as completed
 completedPaths.forEach(function(item) {
 	item.addEventListener("click", function(e) {
 		if(item.getAttribute("completed") === "false") {
 			completePath(item);
 		}
-		countCompletedPathCircles();
+		// countCompletedPathCircles();
+		isGameOver(assignedAbilities);
 	});
 });
 
@@ -64,7 +77,7 @@ function completePath(item) {
 function useAbility(item) {
 		item.setAttribute("class", "fas fa-circle medium");
 		item.setAttribute("completed", "true");
-		console.log(item); // DELETE ME
+		// console.log(item); // DELETE ME
 
 		// ability circles that affect dice
 		if(item.parentNode.id == "flip") {
@@ -112,6 +125,48 @@ function countUsedExperienceCircles() {
 	}
 }
 
+function countCompletedPathCircles() {
+	let count = 0;
+
+	for(let i = 0; i < completedPaths.length; i++) {
+		for(let j = 0; j < completedPaths[i].attributes.length; j++) {
+			if(completedPaths[i].attributes[j].name == "completed") {
+				if(completedPaths[i].attributes[j].value === "true") {
+					count++;					
+				}		
+			} 
+		}	
+	}
+	
+	// console.log("path count:", count);
+	
+	// if(count === 8) {
+	// 	console.log("You win! Reload page to play again.");
+	// 	// scoreGame(assignedAbilities);
+	// 	countUsedAbilityCircles();
+	// }
+	return count;
+}
+
+
+function countUsedAbilityCircles() {
+	let abilityCircles = assignedAbilities.slice(2);
+	let count = 0;
+
+	for(let i = 0; i < abilityCircles.length; i++) {
+		for(let j = 0; j < abilityCircles[i].children.length; j++) {
+			// console.log(abilityCircles[i].children[j].classList);
+			let usedCircles = abilityCircles[i].children[j].classList;
+			if(usedCircles.value === "fas fa-circle medium") {
+				// console.log("USED CIRCLE"); // DELETE ME
+				count++;
+			}
+		}
+	}
+	console.log("used ability circle count:", count);
+	return count;	
+}
+
 function increaseAbility() {
 	let input = prompt("Experience row completed! Increase an ability of your choice by 1: flip, inc-dec, reroll-1, reroll-any");
 
@@ -131,22 +186,56 @@ function appendAbility(input) {
 	}
 }
 
-function countCompletedPathCircles() {
-	let count = 0;
+// function scoreGame(assignedAbilities) {
+// 	let scoredAbilities = assignedAbilities.slice(2);
+// 	let count = 0;
 
-	for(let i = 0; i < completedPaths.length; i++) {
-		for(let j = 0; j < completedPaths[i].attributes.length; j++) {
-			if(completedPaths[i].attributes[j].name == "completed") {
-				if(completedPaths[i].attributes[j].value === "true") {
-					count++;					
-				}		
-			} 
-		}	
+// 	// console.log(scoredAbilities); // DELETE ME
+
+// 	for(let i = 0; i < scoredAbilities.length; i++) {
+// 		// console.log(scoredAbilities[i].children);
+// 		let children = scoredAbilities[i].children;
+// 		for(let j = 0; j < children.length; j++) {
+// 			// console.log("children:", children[j].classList); // DELETE ME
+// 			let childrenCircles = children[j].classList;
+// 			// console.log("CCV:", childrenCircles.value); // DELETE ME
+// 			if(childrenCircles.value === "fas fa-circle medium") {
+// 				// console.log("CLOSED CIRCLE"); // DELETE ME
+// 				count++;
+// 			}
+// 		}
+// 	}
+// 	console.log("end of game scoring:", count);
+// 	return count;
+// }
+
+function isGameOver() {
+// Game Over if:
+	// all 8 paths are complete
+	if(countCompletedPathCircles() === 8) {
+		console.log("GAME OVER. YOU WIN.");
+		// scoreGame(assignedAbilities);
+		countUsedAbilityCircles();
+	} else {
+		console.log("completed path circles < 8");
+		console.log(countCompletedPathCircles());
 	}
-	
-	console.log("path count:", count);
-	
-	if(count === 8) {
-		console.log("You win! Reload page to play again.");
-	}
+
+	// no unused abilities left
+	// total ability circles === used ability circles
+	// let totalAbilities = assignedAbilities.slice(2);
+	// let totalCount = 0;
+	// for(let i = 0; i < totalAbilities.length; i++) {
+	// 	totalCount = totalAbilities[i].children.length;
+	// }
+
+	// if(totalCount === countUsedExperienceCircles()) {
+	// 	console.log("totalCount  === countUsedExperienceCircles");
+	// 	console.log("totalCount:", totalCount);
+	// 	console.log("countUsedExperienceCircles:", countUsedExperienceCircles());
+	// } else {
+	// 	console.log("total count < used abilities");
+	// 	console.log("totalCount:", totalCount);
+	// 	console.log("countUsedExperienceCircles:", countUsedExperienceCircles());
+	// }
 }
