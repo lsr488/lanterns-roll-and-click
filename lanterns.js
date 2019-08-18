@@ -29,7 +29,6 @@ shortCompletedExp.forEach(function(item) {
 			useAbility(item);
 		}
 		countUsedExperienceCircles();
-		// isGameOver(assignedAbilities);
 	});
 });
 
@@ -54,6 +53,8 @@ assignedAbilities.forEach(function(item) {
 
 			parentElement.setAttribute("set", "true");
 		}
+		// countUsedAbilityCircles();
+		isGameOver();
 	});
 });
 
@@ -65,7 +66,7 @@ completedPaths.forEach(function(item) {
 			completePath(item);
 		}
 		// countCompletedPathCircles();
-		isGameOver(assignedAbilities);
+		isGameOver();
 	});
 });
 
@@ -137,17 +138,9 @@ function countCompletedPathCircles() {
 			} 
 		}	
 	}
-	
-	// console.log("path count:", count);
-	
-	// if(count === 8) {
-	// 	console.log("You win! Reload page to play again.");
-	// 	// scoreGame(assignedAbilities);
-	// 	countUsedAbilityCircles();
-	// }
+
 	return count;
 }
-
 
 function countUsedAbilityCircles() {
 	let abilityCircles = assignedAbilities.slice(2);
@@ -155,15 +148,13 @@ function countUsedAbilityCircles() {
 
 	for(let i = 0; i < abilityCircles.length; i++) {
 		for(let j = 0; j < abilityCircles[i].children.length; j++) {
-			// console.log(abilityCircles[i].children[j].classList);
-			let usedCircles = abilityCircles[i].children[j].classList;
-			if(usedCircles.value === "fas fa-circle medium") {
-				// console.log("USED CIRCLE"); // DELETE ME
+			// let usedCircles = abilityCircles[i].children[j].classList;
+			if(abilityCircles[i].children[j].classList.value === "fas fa-circle medium") {
 				count++;
 			}
 		}
 	}
-	console.log("used ability circle count:", count);
+	// console.log("used ability circle count:", count); // DELETE ME
 	return count;	
 }
 
@@ -186,56 +177,61 @@ function appendAbility(input) {
 	}
 }
 
-// function scoreGame(assignedAbilities) {
-// 	let scoredAbilities = assignedAbilities.slice(2);
-// 	let count = 0;
+function scoreGame(assignedAbilities) {
+	let scoredAbilities = assignedAbilities.slice(2);
+	let count = 0;
 
-// 	// console.log(scoredAbilities); // DELETE ME
+	// console.log(scoredAbilities); // DELETE ME
 
-// 	for(let i = 0; i < scoredAbilities.length; i++) {
-// 		// console.log(scoredAbilities[i].children);
-// 		let children = scoredAbilities[i].children;
-// 		for(let j = 0; j < children.length; j++) {
-// 			// console.log("children:", children[j].classList); // DELETE ME
-// 			let childrenCircles = children[j].classList;
-// 			// console.log("CCV:", childrenCircles.value); // DELETE ME
-// 			if(childrenCircles.value === "fas fa-circle medium") {
-// 				// console.log("CLOSED CIRCLE"); // DELETE ME
-// 				count++;
-// 			}
-// 		}
-// 	}
-// 	console.log("end of game scoring:", count);
-// 	return count;
-// }
+	for(let i = 0; i < scoredAbilities.length; i++) {
+		// console.log(scoredAbilities[i].children);
+		let children = scoredAbilities[i].children;
+		for(let j = 0; j < children.length; j++) {
+			// console.log("children:", children[j].classList); // DELETE ME
+			let childrenCircles = children[j].classList;
+			// console.log("CCV:", childrenCircles.value); // DELETE ME
+			if(childrenCircles.value === "fas fa-circle medium") {
+				// console.log("CLOSED CIRCLE"); // DELETE ME
+				count++;
+			}
+		}
+	}
+	console.log("end of game scoring:", count);
+	return count;
+}
 
 function isGameOver() {
 // Game Over if:
 	// all 8 paths are complete
 	if(countCompletedPathCircles() === 8) {
-		console.log("GAME OVER. YOU WIN.");
-		// scoreGame(assignedAbilities);
+		console.log("GAME OVER. YOU WIN."); // DELETE ME
+		scoreGame(assignedAbilities);
 		countUsedAbilityCircles();
 	} else {
-		console.log("completed path circles < 8");
-		console.log(countCompletedPathCircles());
+		// console.log("completed path circles < 8"); // DELETE ME
+		// console.log(countCompletedPathCircles()); // DELETE ME
 	}
 
 	// no unused abilities left
 	// total ability circles === used ability circles
-	// let totalAbilities = assignedAbilities.slice(2);
-	// let totalCount = 0;
-	// for(let i = 0; i < totalAbilities.length; i++) {
-	// 	totalCount = totalAbilities[i].children.length;
-	// }
+	let totalAbilities = assignedAbilities.slice(2);
+	let totalAbilityCount = 0;
+	let totalUsedAbilities = countUsedAbilityCircles();
+	// console.log("total used:", totalUsedAbilities);  // DELETE ME
 
-	// if(totalCount === countUsedExperienceCircles()) {
-	// 	console.log("totalCount  === countUsedExperienceCircles");
-	// 	console.log("totalCount:", totalCount);
-	// 	console.log("countUsedExperienceCircles:", countUsedExperienceCircles());
-	// } else {
-	// 	console.log("total count < used abilities");
-	// 	console.log("totalCount:", totalCount);
-	// 	console.log("countUsedExperienceCircles:", countUsedExperienceCircles());
-	// }
+	for(let i = 0; i < totalAbilities.length; i++) {
+		for(let j = 0; j < totalAbilities[i].children.length; j++) {
+			if(totalAbilities[i].children[j].classList.value.includes("circle")) {
+				// console.log("circle included");
+				totalAbilityCount++;
+			}
+		}
+	}
+
+	// console.log("total ability count:", totalAbilityCount); // DELETE ME
+
+	if(totalUsedAbilities === totalAbilityCount && countCompletedPathCircles() < 8) {
+		console.log("GAME OVER. NO MOVES LEFT. YOU LOSE.") // DELETE ME
+		scoreGame(assignedAbilities);
+	}
 }
