@@ -23,8 +23,8 @@ function flipAbility() {
 
 	input = [Number.parseInt(input, 10)];	
 	removeChosenDice(input);
-	// rolls.push(flippedValue);
-	chooseDice(flippedValue);
+	rolls.push(flippedValue[0]);
+	displayRolls();
 }
 
 function incDec(clickedElement) {
