@@ -75,7 +75,7 @@ function reRollOneDie(clickedElement) {
 	}
 }
 
-function reRollAllDice() {
+function reRollAnyDice() {
 	let input = prompt("Which dice do you want to re-roll? Separate with commas.");
 
 	input = input.split(",");

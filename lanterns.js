@@ -94,7 +94,7 @@ function useAbility(item) {
 			reRollOneDie(item);
 		}
 		if(item.parentNode.id === "reroll-any") {
-			reRollAllDice();
+			reRollAnyDice();
 		}
 }
 
