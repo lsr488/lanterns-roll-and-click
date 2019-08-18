@@ -75,26 +75,42 @@ function reRollOneDie(clickedElement) {
 	}
 }
 
-function reRollAnyDice() {
+function reRollAnyDice(clickedElement) {
 	let input = prompt("Which dice do you want to re-roll? Input values, separated by commas. Or type ALL to re-roll all remaining dice.");
+	let count = 0;
 
-	if(input = "all") {
+	if(input === "all") {
 		let remaining = rolls.length;
 		resetRolls();
 		rollDice(remaining);
 	} else {
+		// debugger
 		input = input.split(",");
 
 		for(let i = 0; i < input.length; i++) {
 			input[i] = Number.parseInt(input[i], 10);
 		}
+	
+		for(let h = 0; h < input.length; h++) {
+			if(rolls.includes(input[h])) {
+				count++;
+			} 
+		}
 
-		// console.log(input); // DELETE ME
+		console.log("match count:", count)
+			
+		if(count != input.length) {
+			alert("One or more dice don't exist. Try again.");
+			resetAbility(clickedElement);			
+		}
 
-		// remove 
-		removeChosenDice(input);
+		if(count === input.length) {
+			console.log("all match");
+			// remove 
+			removeChosenDice(input);
 
-		// reroll # of dice
-		rollDice(input.length);
+			// reroll # of dice
+			rollDice(input.length);
+		}
 	}
 }
