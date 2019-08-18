@@ -1,30 +1,37 @@
-function flipAbility() {
+function flipAbility(clickedElement) {
 	let input = prompt("Which die do you want to flip? Input 1 through 6.");
 	let flippedValue = [];
 
-	if(input === "6") {
-		flippedValue = [1];
-	}
-	if(input === "5") {
-		flippedValue = [2];
-	}
-	if(input === "4") {
-		flippedValue = [3];
-	}
-	if(input === "3") {
-		flippedValue = [4];
-	}
-	if(input === "2") {
-		flippedValue = [5];
-	}
-	if(input === "1") {
-		flippedValue = [6];
-	}
+	input = Number.parseInt(input, 10);
 
-	input = [Number.parseInt(input, 10)];	
-	removeChosenDice(input);
-	rolls.push(flippedValue[0]);
-	displayRolls();
+	if(!rolls.includes(input)) {
+		alert("Choice doesn't exist, try again.");
+		resetAbility(clickedElement);
+	} else {
+		if(input === 6) {
+			flippedValue.push(1);
+		}
+		if(input === 5) {
+			flippedValue.push(2);
+		}
+		if(input === 4) {
+			flippedValue.push(3);
+		}
+		if(input === 3) {
+			flippedValue.push(4);
+		}
+		if(input === 2) {
+			flippedValue.push(5);
+		}
+		if(input === 1) {
+			flippedValue.push(6);
+		}
+
+		input = [input];
+		removeChosenDice(input);
+		rolls.push(flippedValue[0]);
+		displayRolls();
+	}
 }
 
 function incDec(clickedElement) {

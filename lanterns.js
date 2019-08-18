@@ -85,7 +85,7 @@ function useAbility(item) {
 
 		// ability circles that affect dice
 		if(item.parentNode.id == "flip") {
-			flipAbility();
+			flipAbility(item);
 		}
 		if(item.parentNode.id === "inc-dec") {
 			incDec(item);
