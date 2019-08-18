@@ -73,6 +73,9 @@ completedPaths.forEach(function(item) {
 function completePath(item) {
 		item.setAttribute("class", "fas fa-circle small");
 		item.setAttribute("completed", "true");
+
+		// reset both kept and rolled dice
+		resetBoth();
 }
 
 function useAbility(item) {
