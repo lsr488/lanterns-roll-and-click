@@ -45,8 +45,8 @@ function incDec(clickedElement) {
 		}
 		input.shift();
 		removeChosenDice(input);
-		// rolls.push(incDecValue[0]);
-		chooseDice(incDecValue);
+		rolls.push(incDecValue[0]);
+		displayRolls();
 	} else {
 		alert("You forgot to include + or -");
 		resetAbility(clickedElement);
