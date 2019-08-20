@@ -62,13 +62,233 @@ assignedAbilities.forEach(function(item) {
 // counts path circles as completed
 completedPaths.forEach(function(item) {
 	item.addEventListener("click", function(e) {
+		// let parentElement = e.target.parentNode;
+		let parentId = e.target.parentNode.id;
+
+		// console.log("parentElement:", parentElement);
+		console.log("parentId:",parentId);
+
+		// check if kept dice === win condition of level
+			// if yes, completPath if statement
+			// if no, alert
+
 		if(item.getAttribute("completed") === "false") {
 			completePath(item);
+			isPathComplete(parentId);
 		}
-		// countCompletedPathCircles();
-		isGameOver();
+		// isGameOver();
 	});
 });
+
+function isPathComplete(parentId) {
+	const pathObjectives = {
+		1: {combo: [4, 5, "three-of-a-kind"], total: 3, id: 1}, // winning total === 3
+		2: {combo: [2, 3, 4, "pair"], total: 4, id: 2}, // winning total === 4
+		3: {combo: [3, 4, 5, "three-of-a-kind"], total: 4, id: 3}, // winning total === 4
+		4: {combo: ["three-of-a-kind", "three-of-a-kind"], total: 2, id: 4},
+		6: {combo: [2 ,3, 4, "three-of-a-kind"], total: 4, id: 6},
+		7: {combo: [4, 5, 6, "three-of-a-kind"], total: 4, id: 7},
+		8: {combo: ["all matching"], total: 6, id: 8},
+	}
+	let count = 0;
+
+	switch(parentId) { // DELETE ME
+		case "1": 
+			chooseDice([3,3,3,4,5]); 
+			break;
+		case "2":
+			chooseDice([2, 3, 3, 3, 4]);
+			break;
+		case "3":
+			chooseDice([3, 4, 5, 2, 2, 2]);
+			break;		
+		case "4":
+			chooseDice([1, 1, 1, 2, 2, 2]);
+			break;
+		case "6":
+			chooseDice([2, 3, 4, 1, 1, 1]);
+			break;
+		case "7":
+			chooseDice([4, 5, 6, 1, 1, 1]);
+			break;
+		case "8":
+			chooseDice([3, 3, 3, 4, 3, 3]);
+			break;
+		}
+
+	console.log("pathObjective:", pathObjectives[parentId]);
+
+	let keptDiceCopy = keptDice.slice();
+	console.log(keptDiceCopy);
+
+	// why doesn't === work, but == does?
+	// LEVEL 1, 5 dice / 3-of-a-kind
+	if(parentId == 1) {
+		console.log("with obj 4:", keptDiceCopy.includes(pathObjectives[parentId]["combo"][0]));
+
+		// does keptDice include first solution element
+		if(keptDiceCopy.includes(pathObjectives[parentId]["combo"][0])) {
+			count++;
+			let i = keptDiceCopy.indexOf(pathObjectives[parentId]["combo"][0]);
+			// console.log(i);
+
+			keptDiceCopy.splice(i, 1);
+			// console.log(keptDiceCopy);
+		}
+
+		console.log("with obj 5:", keptDiceCopy.includes(pathObjectives[parentId]["combo"][1]));
+
+		// does keptDice include second solution element
+		if(keptDiceCopy.includes(pathObjectives[parentId]["combo"][1])) {
+			count++;
+			i = keptDiceCopy.indexOf(pathObjectives[parentId]["combo"][1]);
+			keptDiceCopy.splice(i, 1);
+			// console.log(keptDiceCopy);
+		}
+		
+		// check for three-of-a-kind
+		if(pathObjectives[parentId]["combo"].includes("three-of-a-kind")) {
+			if(keptDiceCopy[0] === keptDiceCopy[1] && keptDiceCopy[1] === keptDiceCopy[2]) {
+				console.log("three-of-a-kind");
+				keptDiceCopy.push("three-of-a-kind");
+				count++;
+			}
+		}
+
+		if(count === pathObjectives[parentId]["total"]) {
+			console.log(`You completed Path ${pathObjectives[parentId]["id"]}!`);
+		}
+	}
+
+	// LEVEL 2 5 dice / pair
+	if(parentId == 2) {
+		console.log("with obj 2:", keptDiceCopy.includes(pathObjectives[parentId]["combo"][0]));
+
+		// does keptDice include first solution element
+		if(keptDiceCopy.includes(pathObjectives[parentId]["combo"][0])) {
+			count++;
+			let i = keptDiceCopy.indexOf(pathObjectives[parentId]["combo"][0]);
+			// console.log(i);
+
+			keptDiceCopy.splice(i, 1);
+			// console.log(keptDiceCopy);
+		}
+
+		console.log("with obj 3:", keptDiceCopy.includes(pathObjectives[parentId]["combo"][1]));
+
+		// does keptDice include second solution element
+		if(keptDiceCopy.includes(pathObjectives[parentId]["combo"][1])) {
+			count++;
+			i = keptDiceCopy.indexOf(pathObjectives[parentId]["combo"][1]);
+			keptDiceCopy.splice(i, 1);
+			console.log(keptDiceCopy);
+		}
+
+		console.log("with obj 4:", keptDiceCopy.includes(pathObjectives[parentId]["combo"][2]));
+
+		// does keptDice include third solution element
+		if(keptDiceCopy.includes(pathObjectives[parentId]["combo"][2])) {
+			count++;
+			i = keptDiceCopy.indexOf(pathObjectives[parentId]["combo"][2]);
+			keptDiceCopy.splice(i, 1);
+			console.log(keptDiceCopy);
+		}
+		
+		// check for pair
+		if(pathObjectives[parentId]["combo"].includes("pair")) {
+			if(keptDiceCopy[0] === keptDiceCopy[1]) {
+				console.log("pair");
+				keptDiceCopy.push("pair");
+				count++;
+			}
+		}
+
+		if(count === pathObjectives[parentId]["total"]) {
+			console.log(`You completed Path ${pathObjectives[parentId]["id"]}!`);
+		}
+	}
+
+	// LEVEL 3 & 6 & 7, 6 dice / three-of-a-kind
+	if(parentId == 3 || parentId == 6 || parentId == 7) {
+		console.log("with obj 3:", keptDiceCopy.includes(pathObjectives[parentId]["combo"][0]));
+
+		// does keptDice include first solution element
+		if(keptDiceCopy.includes(pathObjectives[parentId]["combo"][0])) {
+			count++;
+			let i = keptDiceCopy.indexOf(pathObjectives[parentId]["combo"][0]);
+			// console.log(i);
+			keptDiceCopy.splice(i, 1);
+			// console.log(keptDiceCopy);
+		}
+
+		console.log("with obj 4:", keptDiceCopy.includes(pathObjectives[parentId]["combo"][1]));
+
+		// does keptDice include second solution element
+		if(keptDiceCopy.includes(pathObjectives[parentId]["combo"][1])) {
+			count++;
+			i = keptDiceCopy.indexOf(pathObjectives[parentId]["combo"][1]);
+			keptDiceCopy.splice(i, 1);
+			console.log(keptDiceCopy);
+		}
+
+		console.log("with obj 5:", keptDiceCopy.includes(pathObjectives[parentId]["combo"][2]));
+
+		// does keptDice include third solution element
+		if(keptDiceCopy.includes(pathObjectives[parentId]["combo"][2])) {
+			count++;
+			i = keptDiceCopy.indexOf(pathObjectives[parentId]["combo"][2]);
+			keptDiceCopy.splice(i, 1);
+			console.log(keptDiceCopy);
+		}
+		
+		// check for three-of-a-kind
+		if(pathObjectives[parentId]["combo"].includes("three-of-a-kind")) {
+			if(keptDiceCopy[0] === keptDiceCopy[1] && keptDiceCopy[1] === keptDiceCopy[2]) {
+				console.log("three-of-a-kind");
+				keptDiceCopy.push("three-of-a-kind");
+				count++;
+			}
+		}
+
+		if(count === pathObjectives[parentId]["total"]) {
+			console.log(`You completed Path ${pathObjectives[parentId]["id"]}!`);
+		}
+	}
+
+		// LEVEL 4, 2 three-of-a-kinds
+	if(parentId == 4) {
+		// check for 1st three-of-a-kind
+		if(pathObjectives[parentId]["combo"].includes("three-of-a-kind")) {
+			if(keptDiceCopy[0] === keptDiceCopy[1] && keptDiceCopy[1] === keptDiceCopy[2]) {
+				count++;
+				keptDiceCopy.splice(0, 3);
+				console.log("three-of-a-kind");
+			}
+		}
+
+		console.log(keptDiceCopy);
+
+		// check for 2nd three-of-a-kind
+		if(pathObjectives[parentId]["combo"].includes("three-of-a-kind")) {
+			if(keptDiceCopy[0] === keptDiceCopy[1] && keptDiceCopy[1] === keptDiceCopy[2]) {
+				count++;
+				console.log("three-of-a-kind");
+				// keptDiceCopy.slice(0, 2);
+			}
+		}
+
+		if(count === pathObjectives[parentId]["total"]) {
+			console.log(`You completed Path ${pathObjectives[parentId]["id"]}!`);
+		}
+	}
+
+	// LEVEL 8, all 6 matching
+	if(parentId == 8) {
+		// ???
+	}
+
+	console.log("count:", count);
+}
 
 function completePath(item) {
 		item.setAttribute("class", "fas fa-circle small");
@@ -210,9 +430,6 @@ function isGameOver() {
 		console.log("GAME OVER. YOU WIN."); // DELETE ME
 		scoreGame(assignedAbilities);
 		countUsedAbilityCircles();
-	} else {
-		// console.log("completed path circles < 8"); // DELETE ME
-		// console.log(countCompletedPathCircles()); // DELETE ME
 	}
 
 	// no unused abilities left
@@ -220,18 +437,14 @@ function isGameOver() {
 	let totalAbilities = assignedAbilities.slice(2);
 	let totalAbilityCount = 0;
 	let totalUsedAbilities = countUsedAbilityCircles();
-	// console.log("total used:", totalUsedAbilities);  // DELETE ME
 
 	for(let i = 0; i < totalAbilities.length; i++) {
 		for(let j = 0; j < totalAbilities[i].children.length; j++) {
 			if(totalAbilities[i].children[j].classList.value.includes("circle")) {
-				// console.log("circle included");
 				totalAbilityCount++;
 			}
 		}
 	}
-
-	// console.log("total ability count:", totalAbilityCount); // DELETE ME
 
 	if(totalUsedAbilities === totalAbilityCount && countCompletedPathCircles() < 8) {
 		console.log("GAME OVER. NO MOVES LEFT. YOU LOSE.") // DELETE ME
