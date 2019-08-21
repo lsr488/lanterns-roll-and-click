@@ -112,7 +112,7 @@ function isPathComplete(parentId) {
 			chooseDice([4, 5, 6, 1, 1, 1]);
 			break;
 		case "8":
-			chooseDice([3, 3, 3, 4, 3, 3]);
+			chooseDice([3, 3, 3, 3, 3, 3]);
 			break;
 		}
 
@@ -284,7 +284,20 @@ function isPathComplete(parentId) {
 
 	// LEVEL 8, all 6 matching
 	if(parentId == 8) {
-		// ???
+		if(pathObjectives[parentId]["combo"].includes("all matching")) {
+			for(let i = 0; i < keptDiceCopy.length; i++) {
+				if(keptDiceCopy[0] === keptDiceCopy[i]) {
+					count++;
+					console.log("match:", keptDiceCopy[i]);
+				} else {
+					console.log("no match:", keptDiceCopy[i]);
+				}
+			}
+		}
+
+		if(count === pathObjectives[parentId]["total"]) {
+			console.log(`You completed Path ${pathObjectives[parentId]["id"]}!`);
+		}
 	}
 
 	console.log("count:", count);
