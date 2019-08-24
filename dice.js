@@ -4,6 +4,7 @@ const buttonRollSomeDice = document.getElementById("roll-some-dice");
 const buttonResetRolledDice = document.getElementById("reset-rolls");
 const buttonResetBoth = document.getElementById("reset-both");
 const buttonChooseDice = document.getElementById("choose-dice");
+const buttonUnchooseDie = document.getElementById("unchoose-die");
 const keptDiceDisplay = document.getElementById("kept-dice");
 const rolledDiceDisplay = document.getElementById("rolled-dice");
 
@@ -26,6 +27,12 @@ buttonResetRolledDice.addEventListener("click", function() {
 
 buttonResetBoth.addEventListener("click", function() {
 	resetBoth();
+});
+
+buttonUnchooseDie.addEventListener("click", function() {
+	let input = prompt("Which die do you want to unchoose? Number 1-6.");
+	input = Number.parseInt(input, 10);
+	unchooseDie(input);
 });
 
 buttonChooseDice.addEventListener("click", function() {
@@ -66,6 +73,20 @@ function chooseDice(num) {
 	}
 	displayKeptDice();
 	displayRolls();
+}
+
+function unchooseDie(input) {
+	let chosenDie = input;
+	console.log("chosenDie:", chosenDie);
+	let index = keptDice.indexOf(chosenDie);
+	console.log("index:", index);
+	keptDice.splice(index, 1);
+	console.log(keptDice);
+	rolls.push(chosenDie);
+	// console.log(keptDice);
+	console.log(rolls);
+	displayRolls();
+	displayKeptDice();
 }
 
 function removeChosenDice(input) {
