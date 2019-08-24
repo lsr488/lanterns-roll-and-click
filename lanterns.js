@@ -84,7 +84,8 @@ completedPaths.forEach(function(item) {
 function isPathComplete(item) {
 	const parentId = item.target.parentNode.id
 
-	// console.log(item.target); // DELETE ME 
+	// console.log("item:", item); // DELETE ME
+	// console.log("item.target:", item.target.parentNode.parentNode.id); // DELETE ME 
 
 	const pathObjectives = {
 		1: {combo: [4, 5, "three-of-a-kind"], total: 3, id: 1},
@@ -318,7 +319,7 @@ function isPathComplete(item) {
 	}
 
 	// LEVEL 5
-	if(parentId == 5) {
+	if(item.target.parentNode.parentNode.id == 5) {
 		completePath(item.target);
 	}
 
