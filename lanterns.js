@@ -70,20 +70,22 @@ completedPaths.forEach(function(item) {
 		console.log("parentId:",parentId); // DELETE ME
 
 		// check if kept dice === win condition of level
-			// if yes, completPath if statement
+			// if yes, completePath if statement
 			// if no, alert
 
 		if(item.getAttribute("completed") === "false") {
 			isPathComplete(e);
 			// isPathComplete(parentId);
-			completePath(item);
+			// completePath(item);
 		}
 	});
 });
 
 function isPathComplete(item) {
 	const parentId = item.target.parentNode.id
-	// console.log(); 
+
+	// console.log(item.target); // DELETE ME 
+
 	const pathObjectives = {
 		1: {combo: [4, 5, "three-of-a-kind"], total: 3, id: 1},
 		2: {combo: [2, 3, 4, "pair"], total: 4, id: 2},
@@ -97,7 +99,7 @@ function isPathComplete(item) {
 
 	// switch(parentId) { // DELETE ME
 	// 	case "1": 
-	// 		chooseDice([3,3,3,4,5]); 
+	// 		chooseDice([3,3, 3, 4,5]); 
 	// 		break;
 	// 	case "2":
 	// 		chooseDice([2, 3, 3, 3, 4]);
@@ -161,11 +163,14 @@ function isPathComplete(item) {
 
 		if(count === pathObjectives[parentId]["total"]) {
 			console.log(`You completed Path ${pathObjectives[parentId]["id"]}!`);
+				completePath(item.target);
 				isGameOver();
 				resetBoth();
 		} else {
-			console.log("You did not complete the path.");
-			// what else happens? how do you reset the dice/path/abilities?
+			// alert(`You didn't complete Path ${pathObjectives[parentId]["id"]}.`);
+			console.log(`You didn't complete Path ${pathObjectives[parentId]["id"]}.`)
+			resetPath(item.target);
+			// what else happens when you don't have the dice? can you reset the kept dice?
 		}
 	}
 
@@ -214,8 +219,13 @@ function isPathComplete(item) {
 
 		if(count === pathObjectives[parentId]["total"]) {
 			console.log(`You completed Path ${pathObjectives[parentId]["id"]}!`);
+			completePath(item.target);
 			isGameOver();
 			resetBoth();
+		} else {
+			// alert(`You didn't complete Path ${pathObjectives[parentId]["id"]}.`);
+			console.log(`You didn't complete Path ${pathObjectives[parentId]["id"]}.`)
+			resetPath(item.target);
 		}
 	}
 
@@ -263,8 +273,13 @@ function isPathComplete(item) {
 
 		if(count === pathObjectives[parentId]["total"]) {
 			console.log(`You completed Path ${pathObjectives[parentId]["id"]}!`);
+			completePath(item.target)
 			isGameOver();
 			resetBoth();
+		} else {
+			// alert(`You didn't complete Path ${pathObjectives[parentId]["id"]}.`);
+			console.log(`You didn't complete Path ${pathObjectives[parentId]["id"]}.`)
+			resetPath(item.target);
 		}
 	}
 
@@ -292,9 +307,19 @@ function isPathComplete(item) {
 
 		if(count === pathObjectives[parentId]["total"]) {
 			console.log(`You completed Path ${pathObjectives[parentId]["id"]}!`);
+			completePath(item.target)
 			isGameOver();
 			resetBoth();
+		} else {
+			// alert(`You didn't complete Path ${pathObjectives[parentId]["id"]}.`);
+			console.log(`You didn't complete Path ${pathObjectives[parentId]["id"]}.`)
+			resetPath(item.target);
 		}
+	}
+
+	// LEVEL 5
+	if(parentId == 5) {
+		completePath(item.target);
 	}
 
 	// LEVEL 8, all 6 matching
@@ -309,8 +334,13 @@ function isPathComplete(item) {
 
 		if(count === pathObjectives[parentId]["total"]) {
 			console.log(`You completed Path ${pathObjectives[parentId]["id"]}!`);
+			completePath(item.target);
 			isGameOver();
 			resetBoth();
+		} else {
+			// alert(`You didn't complete Path ${pathObjectives[parentId]["id"]}.`);
+			console.log(`You didn't complete Path ${pathObjectives[parentId]["id"]}.`)
+			resetPath(item.target);
 		}
 	}
 
@@ -320,6 +350,14 @@ function isPathComplete(item) {
 function completePath(item) {
 		item.setAttribute("class", "fas fa-circle small");
 		item.setAttribute("completed", "true");
+
+		// reset both kept and rolled dice
+		// resetBoth();
+}
+
+function resetPath(item) {
+		item.setAttribute("class", "far fa-circle small");
+		item.setAttribute("completed", "false");
 
 		// reset both kept and rolled dice
 		// resetBoth();
