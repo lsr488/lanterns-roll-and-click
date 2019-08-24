@@ -86,7 +86,7 @@ function reRollAnyDice(clickedElement) {
 	let input = prompt("Which dice do you want to re-roll? Input values, separated by commas. Or type ALL to re-roll all remaining dice.");
 	let count = 0;
 
-	if(input === "all") {
+	if(input === "all" || input === "ALL") {
 		let remaining = rolls.length;
 		resetRolls();
 		rollDice(remaining);
