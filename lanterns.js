@@ -17,6 +17,7 @@ campExp.forEach(function(item) {
 		if(item.getAttribute("completed") === "false") {
 			useAbility(item);
 			appendAbility("reroll-any");
+			updateAbilityCount(e);
 		}
 	});
 });
@@ -52,8 +53,10 @@ assignedAbilities.forEach(function(item) {
 			}	
 
 			parentElement.setAttribute("set", "true");
+			console.log(e); // DELETE ME
+			// console.log(e.target.children); // DELETE ME
+			updateAbilityCount(e);
 		}
-		// countUsedAbilityCircles();
 		isGameOver();
 	});
 });
@@ -351,23 +354,16 @@ function isPathComplete(item) {
 function completePath(item) {
 		item.setAttribute("class", "fas fa-circle small");
 		item.setAttribute("completed", "true");
-
-		// reset both kept and rolled dice
-		// resetBoth();
 }
 
 function resetPath(item) {
 		item.setAttribute("class", "far fa-circle small");
 		item.setAttribute("completed", "false");
-
-		// reset both kept and rolled dice
-		// resetBoth();
 }
 
 function useAbility(item) {
 		item.setAttribute("class", "fas fa-circle medium");
 		item.setAttribute("completed", "true");
-		// console.log(item); // DELETE ME
 
 		// ability circles that affect dice
 		if(item.parentNode.id == "flip") {
@@ -447,6 +443,97 @@ function countUsedAbilityCircles() {
 	return count;	
 }
 
+function countTotalAbilityCircles(input) {
+	// console.log("countTAC input:", input);
+	// console.log("countTAC target:", input.target);
+	// console.log("countTAC target parentElement id:", input.target.parentElement.id);
+	let inputCircles = input.target.parentNode;
+	// console.log("input Circles:", inputCircles); // DELETE ME
+	let abilityCircles = assignedAbilities.slice(2);
+	// console.log("ability array:", abilityCircles);
+	let count = 0;
+	let newAbilityCircles = [];
+	let countTACid = input.target.parentElement.id;
+
+	for(let i = 0; i < abilityCircles.length; i++) {
+		if(abilityCircles[i].id == (countTACid)) {
+			newAbilityCircles.push(abilityCircles[i]);
+		}
+	}
+	// console.log("NEW ability circs:", newAbilityCircles[0].children);
+	for(let j = 0; j < newAbilityCircles.length; j++) {
+		// console.log(newAbilityCircles[j].children); // DELETE ME
+		for(let k = 0; k < newAbilityCircles[j].children.length; k++) {
+			if(newAbilityCircles[j].children[k].classList.value.includes("circle")) {
+				count++;
+			}
+		}
+	}
+	return count;	
+}
+
+function appendAbilityCount(input) {
+	// input comes from appendAbility()
+	let selectedAbility = document.getElementById(input);
+	let count = 0;
+
+	for(let i = 0; i < selectedAbility.children.length; i++) {
+		if(selectedAbility.children[i].classList.value.includes("circle")) {
+			count++;
+		}
+	}
+
+	selectedAbility.children[0].children[0].textContent = `(${count})`;
+}
+
+function updateAbilityCount(input) {
+	// input comes from assignedAbilities eventListener
+	// console.log("INPUT:", input); // DELETE ME
+
+	let item = input.target.children[0];
+	// console.log("item:", item); // DELETE ME
+	let count = countTotalAbilityCircles(input);
+
+	// handles exception case of camp-reroll in level 5
+	if(input.target.parentElement.id.includes("camp-reroll")) {
+		let newCount = 0;
+		// pull target element (reroll-any) from pre-existing array of all abilities
+		for(let i = 0; i < assignedAbilities.length; i++) {
+			// filter to just reroll-any
+			if(assignedAbilities[i].id == "reroll-any") {
+				// console.log("IF:", assignedAbilities[i]); // DELETE ME
+				// drill down to count the total number of circles
+				for(let j = 0; j < assignedAbilities[i].children.length; j++) {
+					// console.log(assignedAbilities[i].children[j]); // DELETE ME
+					if(assignedAbilities[i].children[j].classList.value.includes("circle")) {
+						// console.log(assignedAbilities[i].children[j].children); // DELETE ME
+						newCount++;
+						// console.log("new count:", newCount);  // DELETE ME
+					} 
+				}
+
+				// drill down to children of reroll-any
+				let newTarget = assignedAbilities[i].children;
+				// console.log("newTarget:", newTarget); // DELETE ME
+				// updates the count textContent
+				for(let i = 0; i < newTarget.length; i++) {
+					if(newTarget[i].classList.value.includes("sync")) {
+						// console.log("sync"); // DELETE ME
+						// console.log("new count:", newCount); // DELETE ME
+						// console.log(newTarget[i].children[0].textContent); // DELETE ME
+						newTarget[i].children[0].textContent = `(${newCount})`;
+					}
+				}
+			}
+		}
+	}
+
+	// update count for 4 main abilities, not coming from camp/level 5
+	if(!input.target.classList.value.includes("book") && !input.target.parentElement.id.includes("camp-reroll")) {
+		item.textContent = `(${count})`;
+	}
+}
+
 function increaseAbility() {
 	let input = prompt("Experience row completed! Increase an ability of your choice by 1: flip, inc-dec, reroll-1, reroll-any");
 
@@ -464,6 +551,8 @@ function appendAbility(input) {
 			selectedAbility.append(circle);
 		}
 	}
+
+	appendAbilityCount(input);
 }
 
 function scoreGame(assignedAbilities) {
