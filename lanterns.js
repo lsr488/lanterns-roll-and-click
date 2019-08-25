@@ -488,10 +488,7 @@ function appendAbilityCount(input) {
 
 function updateAbilityCount(input) {
 	// input comes from assignedAbilities eventListener
-	// console.log("INPUT:", input); // DELETE ME
-
 	let item = input.target.children[0];
-	// console.log("item:", item); // DELETE ME
 	let count = countTotalAbilityCircles(input);
 
 	// handles exception case of camp-reroll in level 5
@@ -501,26 +498,18 @@ function updateAbilityCount(input) {
 		for(let i = 0; i < assignedAbilities.length; i++) {
 			// filter to just reroll-any
 			if(assignedAbilities[i].id == "reroll-any") {
-				// console.log("IF:", assignedAbilities[i]); // DELETE ME
 				// drill down to count the total number of circles
 				for(let j = 0; j < assignedAbilities[i].children.length; j++) {
-					// console.log(assignedAbilities[i].children[j]); // DELETE ME
 					if(assignedAbilities[i].children[j].classList.value.includes("circle")) {
-						// console.log(assignedAbilities[i].children[j].children); // DELETE ME
 						newCount++;
-						// console.log("new count:", newCount);  // DELETE ME
 					} 
 				}
 
 				// drill down to children of reroll-any
 				let newTarget = assignedAbilities[i].children;
-				// console.log("newTarget:", newTarget); // DELETE ME
 				// updates the count textContent
 				for(let i = 0; i < newTarget.length; i++) {
 					if(newTarget[i].classList.value.includes("sync")) {
-						// console.log("sync"); // DELETE ME
-						// console.log("new count:", newCount); // DELETE ME
-						// console.log(newTarget[i].children[0].textContent); // DELETE ME
 						newTarget[i].children[0].textContent = `(${newCount})`;
 					}
 				}
