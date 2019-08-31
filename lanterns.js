@@ -79,22 +79,19 @@ completedPaths.forEach(function(item) {
 	});
 });
 
-
 function displayNotificationForShortTime(notification) {
 	// 10000 = 10 seconds
 	msg.textContent = notification;
 	window.setTimeout(function() {
 		msg.textContent = "";
-	}, 3000)
-
+	}, 4000);
 }
-
 
 function isPathComplete(item) {
 	const parentId = item.target.parentNode.id
 
-	console.log("item:", item); // DELETE ME
-	console.log("item.target:", item.target.parentNode.parentNode.id); // DELETE ME 
+	// console.log("item:", item); // DELETE ME
+	// console.log("item.target:", item.target.parentNode.parentNode.id); // DELETE ME 
 
 	const pathObjectives = {
 		1: {combo: [4, 5, "three-of-a-kind"], total: 3, id: 1},
@@ -160,17 +157,18 @@ function isPathComplete(item) {
 			}
 		}
 
+
+		// let pathObjectiveParentId = pathObjectives[parentId];
+		// console.log("TEST:", pathObjectiveParentId);
+
+		// display whether path completed or not
 		if(count === pathObjectives[parentId]["total"]) {
-			console.log(`You completed Path ${pathObjectives[parentId]["id"]}!`);
-				let notification = `You completed Path ${pathObjectives[parentId]["id"]}!`;
-				displayNotificationForShortTime(notification);
-				completePath(item.target);
-				isGameOver();
-				resetBoth();
-		} else {
-			console.log(`You didn't complete Path ${pathObjectives[parentId]["id"]}.`)
-			let notification = `You didn't complete Path ${pathObjectives[parentId]["id"]}.`;
-			displayNotificationForShortTime(notification);
+			pathObjectiveCompleted(pathObjectives[parentId]);
+			completePath(item.target);
+			isGameOver();
+			resetBoth();
+		 } else {
+		 	pathObjectiveNotCompleted(pathObjectives[parentId]);
 			resetPath(item.target);
 			// what else happens when you don't have the dice? can you reset abilities?
 		}
@@ -206,17 +204,14 @@ function isPathComplete(item) {
 			}
 		}
 
+		// display whether path completed or not
 		if(count === pathObjectives[parentId]["total"]) {
-			console.log(`You completed Path ${pathObjectives[parentId]["id"]}!`);
-			let notification = `You completed Path ${pathObjectives[parentId]["id"]}!`;
-			displayNotificationForShortTime(notification);
+			pathObjectiveCompleted(pathObjectives[parentId]);
 			completePath(item.target);
 			isGameOver();
 			resetBoth();
 		} else {
-			console.log(`You didn't complete Path ${pathObjectives[parentId]["id"]}.`);
-			let notification = `You didn't complete Path ${pathObjectives[parentId]["id"]}.`;
-			displayNotificationForShortTime(notification);
+		 	pathObjectiveNotCompleted(pathObjectives[parentId]);
 			resetPath(item.target);
 		}
 	}
@@ -251,17 +246,14 @@ function isPathComplete(item) {
 			}
 		}
 
+		// display whether path completed or not
 		if(count === pathObjectives[parentId]["total"]) {
-			console.log(`You completed Path ${pathObjectives[parentId]["id"]}!`);
-			let notification = `You completed Path ${pathObjectives[parentId]["id"]}!`;
-			displayNotificationForShortTime(notification);
+			pathObjectiveCompleted(pathObjectives[parentId]);
 			completePath(item.target)
 			isGameOver();
 			resetBoth();
 		} else {
-			console.log(`You didn't complete Path ${pathObjectives[parentId]["id"]}.`);
-			let notification = `You didn't complete Path ${pathObjectives[parentId]["id"]}.`;
-			displayNotificationForShortTime(notification);
+		 	pathObjectiveNotCompleted(pathObjectives[parentId]);
 			resetPath(item.target);
 		}
 	}
@@ -283,10 +275,9 @@ function isPathComplete(item) {
 			}
 		}
 
+		// display whether path completed or not
 		if(count === pathObjectives[parentId]["total"]) {
-			console.log(`You completed Path ${pathObjectives[parentId]["id"]}!`);
-			let notification = `You completed Path ${pathObjectives[parentId]["id"]}!`;
-			displayNotificationForShortTime(notification);
+			pathObjectiveCompleted(pathObjectives[parentId]);
 			completePath(item.target)
 			isGameOver();
 			resetBoth();
@@ -302,9 +293,12 @@ function isPathComplete(item) {
 	// parent element ID is two levels up, unlike ever other path that's just 1 level up
 	if(item.target.parentNode.parentNode.id == 5) {
 		// console.log(path)
-		console.log(`You completed Path ${pathObjectives[item.target.parentNode.parentNode.id]["id"]}!`);
-		let notification = `You completed Path ${pathObjectives[item.target.parentNode.parentNode.id]["id"]}!`;
-		displayNotificationForShortTime(notification);
+		// console.log(`You completed Path ${pathObjectives[item.target.parentNode.parentNode.id]["id"]}!`);
+		// let notification = `You completed Path ${pathObjectives[item.target.parentNode.parentNode.id]["id"]}!`;
+		// displayNotificationForShortTime(notification);
+
+		pathObjectiveCompleted(pathObjectives[item.target.parentNode.parentNode.id]);
+
 		completePath(item.target);
 	}
 
@@ -318,20 +312,29 @@ function isPathComplete(item) {
 			}
 		}
 
+		// display whether path completed or not
 		if(count === pathObjectives[parentId]["total"]) {
-			console.log(`You completed Path ${pathObjectives[parentId]["id"]}!`);
-			let notification = `You completed Path ${pathObjectives[parentId]["id"]}!`;
+			pathObjectiveCompleted(pathObjectives[parentId]);
 			displayNotificationForShortTime(notification);
 			completePath(item.target);
 			isGameOver();
 			resetBoth();
 		} else {
-			console.log(`You didn't complete Path ${pathObjectives[parentId]["id"]}.`);
-			let notification = `You didn't complete Path ${pathObjectives[parentId]["id"]}.`;
-			displayNotificationForShortTime(notification);
+		 	pathObjectiveNotCompleted(pathObjectives[parentId]);
 			resetPath(item.target);
 		}
 	}
+}
+
+function pathObjectiveCompleted(pathObjective) {
+	// console.log(pathObjective); // DELETE ME
+		let notification = `You completed Path ${pathObjective["id"]}!`;
+		displayNotificationForShortTime(notification);
+}
+
+function pathObjectiveNotCompleted(pathObjective) {
+		let notification = `You didn't complete Path ${pathObjective["id"]}.`;
+		displayNotificationForShortTime(notification);	
 }
 
 function completePath(item) {
@@ -556,7 +559,7 @@ function isGameOver() {
 	if(countCompletedPathCircles() === 8) {
 		console.log("GAME OVER. YOU WIN."); // DELETE ME
 		let finalScore = 	scoreGame(assignedAbilities);
-		let notification = "Game Over. You win! Your score is " + finalScore + ".";
+		let notification = "You win! Your score is " + finalScore + ".";
 		msg.textContent = notification;
 		countUsedAbilityCircles();
 	}
