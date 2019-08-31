@@ -51,9 +51,25 @@ buttonChooseDice.addEventListener("click", function() {
 		input = Number.parseInt(input, 10);
 		diceChoice.push(input);
 	}
-	chooseDice(diceChoice);
-	removeChosenDice(diceChoice);
+
+	// verifies all chosen dice exist in rolls, then moves selected to keptDice and removes from rolls
+	if(checkChosenDiceExist(diceChoice)) {
+		chooseDice(diceChoice);
+		removeChosenDice(diceChoice);
+	}
+
 });
+
+function checkChosenDiceExist(diceChoice) {
+	console.log(diceChoice);
+	for(let i = 0; i < diceChoice.length; i++) {
+		if(!rolls.includes(diceChoice[i])) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+}
 
 function rollDice(numOfDice = "6") {
 	for(let i = 0; i < numOfDice; i ++) {
@@ -70,21 +86,22 @@ function rollDie() {
 function chooseDice(num) {
 	for(let i = 0; i < num.length; i++) {
 		keptDice.push(num[i]);
-	}
+	}		
+	
 	displayKeptDice();
 	displayRolls();
 }
 
 function unchooseDie(input) {
 	let chosenDie = input;
-	console.log("chosenDie:", chosenDie);
+	// console.log("chosenDie:", chosenDie); // DELETE ME
 	let index = keptDice.indexOf(chosenDie);
-	console.log("index:", index);
+	// console.log("index:", index); // DELETE ME
 	keptDice.splice(index, 1);
-	console.log(keptDice);
+	// console.log(keptDice); // DELETE ME
 	rolls.push(chosenDie);
 	// console.log(keptDice);
-	console.log(rolls);
+	// console.log(rolls); // DELETE ME
 	displayRolls();
 	displayKeptDice();
 }
