@@ -11,6 +11,8 @@ const assignedAbilities = [...abilities];
 const shortCompletedExp = completedExp.slice(1);
 // camp reroll ability circle only
 const campAbility = completedExp.slice(0,1);
+// both children in level 5/camp
+const bothCampItems = assignedAbilities.slice(0,2);
 
 // add event listeners to camp abilities
 campAbility.forEach(function(item) {
@@ -66,25 +68,6 @@ assignedAbilities.forEach(function(item) {
 		isGameOver();
 	});
 });
-
-		// HERE 8/31/19, figuring out how to get camp exp circle to auto-fill exp in char sheet
-		// move camp exp to char sheet on click
-		// if(parentElement.id == "camp-exp") {
-		// 	moveCampExpToCharacterSheet(item);
-		// }
-function moveCampExpToCharacterSheet(item) {
-	// 	console.log("item:", item.children);
-	// // console.log("item kids:", item.children);
-	// for(let i = 0; i < item.children.length; i++) {
-	// 	// console.log(item.children[i]);
-	// 	console.log("kid classlist:", item.children[i].classList);
-	// 	if(item.children[i].classList.value.includes("circle")) {
-	// 		// useAbility(item);
-	// 		console.log("yes");					
-	
-	// 	}
-	// }
-}
 
 // add event listeners to path circles
 // counts path circles as completed
@@ -334,8 +317,15 @@ function isPathComplete(item) {
 
 		// pathObjectiveCompleted(pathObjectives[item.target.parentNode.parentNode.id]); // DELETE ME
 
-		pathObjectiveCompleted(pathObjectives[parentId]);
-		completePath(item.target);
+
+		// HERE 8/31/19 trying to get 5 to only complete if all circles in camp have been used. currently firing even if all circles are empty
+		if(checkPathFiveCompleted) {
+			pathObjectiveCompleted(pathObjectives[parentId]);
+			completePath(item.target);
+		} else {
+		 	pathObjectiveNotCompleted(pathObjectives[parentId]);
+			resetPath(item.target);			
+		}
 	}
 
 	// LEVEL 8, all 6 matching
@@ -360,6 +350,34 @@ function isPathComplete(item) {
 		}
 	}
 }
+
+function checkPathFiveCompleted() {
+	// console.log(bothCampItems);
+	let campCircles = [];
+	let count = 0;
+	for(let i = 0; i < bothCampItems.length; i++) {
+		for(let j = 0; j < bothCampItems[i].children.length; j++) {
+			if(bothCampItems[i].children[j].classList.value.includes("circle")) {
+				// console.log(bothCampItems[i].children[j]);
+				campCircles.push(bothCampItems[i].children[j]);
+			}
+		}
+	}
+	// console.log("campCircles:", campCircles);
+	for(let i = 0; i < campCircles.length; i++) {
+		if(campCircles[i].classList.value.includes("fas")) {
+			count++;
+		}
+	}
+	// console.log("count:", count);
+
+	if(count === campCircles.length) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 
 function pathObjectiveCompleted(pathObjective) {
 		let notification = `You completed Path ${pathObjective["id"]}!`;
