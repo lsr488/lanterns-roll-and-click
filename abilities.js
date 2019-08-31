@@ -7,7 +7,7 @@ function flipAbility(clickedElement) {
 	if(!rolls.includes(input)) {
 		alert("Choice doesn't exist, try again.");
 		resetAbility(clickedElement);
-	} else {
+	}	else {
 		if(input === 6) {
 			flippedValue.push(1);
 		}
@@ -35,18 +35,36 @@ function flipAbility(clickedElement) {
 }
 
 function incDec(clickedElement) {
+	// debugger
 	// clickedElement comes from useAbility in lanterns.js
 	let input = prompt('Which die do you want to increment up or down? Ex: "5 +" or "5 -"');
 	let incDecValue = [];
+
+	// allows Esc to cancel ability choice and un-uses ability circle
+	if(input === null) {
+		alert("Ability choice cancelled.");
+		resetAbility(clickedElement);
+		return;
+	}
 
 	input = input.split(" ");
 	input.sort();
 	input[1] = Number.parseInt(input[1], 10);
 
+	// checks if input exists in rolled dice
+	if(!rolls.includes(input[1])) {
+		alert("Choice doesn't exist. Try again.");
+		resetAbility(clickedElement);
+		return;
+	}
+
+	// checks if inc or dec selected
 	if(input[0] === "+" || input[0] === "-") {
+		// inc value
 		if(input.includes("+")) {
 			incDecValue[0] = input[1] + 1;
 		}
+		// dec value
 		if(input.includes("-")) {
 			incDecValue[0] = input[1] - 1;
 		}
@@ -63,6 +81,14 @@ function incDec(clickedElement) {
 function reRollOneDie(clickedElement) {
 	// clickedElement comes from useAbility in lanterns.js
 	let input = prompt("Which die do you want to re-roll?");
+
+	// allows Esc to cancel ability choice and un-uses ability circle
+	if(input === null) {
+		alert("Ability choice cancelled.");
+		resetAbility(clickedElement);
+		return;
+	}
+
 	input = input.split(",");
 
 	if(input.length > 1) {
@@ -85,6 +111,13 @@ function reRollOneDie(clickedElement) {
 function reRollAnyDice(clickedElement) {
 	let input = prompt("Which dice do you want to re-roll? Input values, separated by commas. Or type ALL to re-roll all remaining dice.");
 	let count = 0;
+
+	// allows Esc to cancel ability choice and un-uses ability circle
+	if(input === null) {
+		alert("Ability choice cancelled.");
+		resetAbility(clickedElement);
+		return;
+	}
 
 	if(input === "all" || input === "ALL") {
 		let remaining = rolls.length;
