@@ -23,7 +23,7 @@ campExp.forEach(function(item) {
 	});
 });
 
-// add event listeners to ability circles
+// add event listeners to exp circles
 // counts when ability circle is used
 shortCompletedExp.forEach(function(item) {
 	item.addEventListener("click", function(e) {
@@ -87,6 +87,13 @@ function displayNotificationForShortTime(notification) {
 	}, 4000);
 }
 
+function keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, element) {
+	let i = keptDiceCopy.indexOf(pathObjectiveCombo[element]);
+	keptDiceCopy.splice(i, 1);
+	return keptDiceCopy;
+}
+
+
 function isPathComplete(item) {
 	const parentId = item.target.parentNode.id
 
@@ -104,6 +111,7 @@ function isPathComplete(item) {
 		8: {combo: ["all matching"], total: 6, id: 8},
 	}
 	let count = 0;
+	let pathObjectiveCombo = pathObjectives[parentId]["combo"];
 
 	// switch(parentId) { // DELETE ME
 	// 	case "1": 
@@ -136,18 +144,16 @@ function isPathComplete(item) {
 	
 		// LEVEL 1, 5 dice / 3-of-a-kind
 	if(parentId == 1) {
-		// does keptDice include first solution element
-		if(keptDiceCopy.includes(pathObjectives[parentId]["combo"][0])) {
+	 // does keptDice include first solution element
+		if(keptDiceCopy.includes(pathObjectiveCombo[0])) {
 			count++;
-			let i = keptDiceCopy.indexOf(pathObjectives[parentId]["combo"][0]);
-			keptDiceCopy.splice(i, 1);
+			keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, 0);
 		}
 
 		// does keptDice include second solution element
-		if(keptDiceCopy.includes(pathObjectives[parentId]["combo"][1])) {
+		if(keptDiceCopy.includes(pathObjectiveCombo[1])) {
 			count++;
-			i = keptDiceCopy.indexOf(pathObjectives[parentId]["combo"][1]);
-			keptDiceCopy.splice(i, 1);
+			keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, 1);
 		}
 		
 		// check for three-of-a-kind
@@ -156,10 +162,6 @@ function isPathComplete(item) {
 				count++;
 			}
 		}
-
-
-		// let pathObjectiveParentId = pathObjectives[parentId];
-		// console.log("TEST:", pathObjectiveParentId);
 
 		// display whether path completed or not
 		if(count === pathObjectives[parentId]["total"]) {
@@ -176,25 +178,22 @@ function isPathComplete(item) {
 
 	// LEVEL 2; 5 dice / pair
 	if(parentId == 2) {
-		// does keptDice include first solution element
-		if(keptDiceCopy.includes(pathObjectives[parentId]["combo"][0])) {
+	 // does keptDice include first solution element
+		if(keptDiceCopy.includes(pathObjectiveCombo[0])) {
 			count++;
-			let i = keptDiceCopy.indexOf(pathObjectives[parentId]["combo"][0]);
-			keptDiceCopy.splice(i, 1);
+			keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, 0);
 		}
 
 		// does keptDice include second solution element
-		if(keptDiceCopy.includes(pathObjectives[parentId]["combo"][1])) {
+		if(keptDiceCopy.includes(pathObjectiveCombo[1])) {
 			count++;
-			i = keptDiceCopy.indexOf(pathObjectives[parentId]["combo"][1]);
-			keptDiceCopy.splice(i, 1);
+			keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, 1);
 		}
-
+		
 		// does keptDice include third solution element
-		if(keptDiceCopy.includes(pathObjectives[parentId]["combo"][2])) {
+		if(keptDiceCopy.includes(pathObjectiveCombo[2])) {
 			count++;
-			i = keptDiceCopy.indexOf(pathObjectives[parentId]["combo"][2]);
-			keptDiceCopy.splice(i, 1);
+			keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, 2);
 		}
 		
 		// check for pair
@@ -219,24 +218,22 @@ function isPathComplete(item) {
 	// LEVEL 3 & 6 & 7, 6 dice / three-of-a-kind
 	if(parentId == 3 || parentId == 6 || parentId == 7) {
 		// does keptDice include first solution element
-		if(keptDiceCopy.includes(pathObjectives[parentId]["combo"][0])) {
+		if(keptDiceCopy.includes(pathObjectiveCombo[0])) {
 			count++;
-			let i = keptDiceCopy.indexOf(pathObjectives[parentId]["combo"][0]);
-			keptDiceCopy.splice(i, 1);
+			keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, 0);
 		}
 
 		// does keptDice include second solution element
-		if(keptDiceCopy.includes(pathObjectives[parentId]["combo"][1])) {
+		if(keptDiceCopy.includes(pathObjectiveCombo[1])) {
 			count++;
-			i = keptDiceCopy.indexOf(pathObjectives[parentId]["combo"][1]);
-			keptDiceCopy.splice(i, 1);
+			keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, 1);
 		}
 
+
 		// does keptDice include third solution element
-		if(keptDiceCopy.includes(pathObjectives[parentId]["combo"][2])) {
+		if(keptDiceCopy.includes(pathObjectiveCombo[2])) {
 			count++;
-			i = keptDiceCopy.indexOf(pathObjectives[parentId]["combo"][2]);
-			keptDiceCopy.splice(i, 1);
+			keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, 2);
 		}
 		
 		// check for three-of-a-kind
@@ -291,6 +288,7 @@ function isPathComplete(item) {
 
 	// LEVEL 5
 	// parent element ID is two levels up, unlike ever other path that's just 1 level up
+	// TODO: check if all camp circles used, if yes complete, else not complete
 	if(item.target.parentNode.parentNode.id == 5) {
 		// console.log(path)
 		// console.log(`You completed Path ${pathObjectives[item.target.parentNode.parentNode.id]["id"]}!`);
@@ -327,7 +325,6 @@ function isPathComplete(item) {
 }
 
 function pathObjectiveCompleted(pathObjective) {
-	// console.log(pathObjective); // DELETE ME
 		let notification = `You completed Path ${pathObjective["id"]}!`;
 		displayNotificationForShortTime(notification);
 }
@@ -350,6 +347,8 @@ function resetPath(item) {
 function useAbility(item) {
 		item.setAttribute("class", "fas fa-circle medium");
 		item.setAttribute("completed", "true");
+
+		console.log(keptDice);
 
 		// ability circles that affect dice
 		if(item.parentNode.id == "flip") {
