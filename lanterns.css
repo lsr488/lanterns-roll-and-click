@@ -1,6 +1,6 @@
 body {
 	/*background-color: lightsteelblue;*/
-	background: rgb(186, 16, 6);
+	/*background: rgb(186, 16, 6);*/
 	/*background: radial-gradient(circle, rgba(186,16,6,1) 0%, rgba(231,102,19,1) 63%, rgba(255,223,0,1) 100%);*/
 	background: linear-gradient(90deg, rgba(186,16,6,1) 0%, rgba(231,102,19,1) 45%, rgba(255,223,0,1) 100%);
 	font-family: monospace;
@@ -18,7 +18,7 @@ li {
 
 #buttons {
 	position: absolute;
-	top: 500px;
+	top: 515px;
 	/*left: 25%;*/
 }
 
@@ -33,7 +33,7 @@ li {
 }
 
 #sheet {
-	width: 700px;
+	width: 800px;
 	margin: auto;
 }
 
@@ -75,4 +75,22 @@ li {
 .large {
 	font-size: 200%;
 	padding: 5px;
+}
+
+.count {
+	margin: 0;
+	display: inline;
+	font-size: 75%;
+}
+
+.msg {
+	height: 35px;
+	font-size: 30px;
+	margin: 5px;
+	color: white;
+	text-align: center;
+}
+
+.hide {
+	display: none;
 }
