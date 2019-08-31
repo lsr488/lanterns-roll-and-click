@@ -95,7 +95,15 @@ function keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, element) {
 
 
 function isPathComplete(item) {
-	const parentId = item.target.parentNode.id
+	let parentId;
+	let pathObjectiveCombo;
+	
+	// Level 5 parent element ID is two levels up, unlike ever other path that's just 1 level up
+	if(item.target.parentNode.parentNode.id == 5) {
+		parentId = item.target.parentNode.parentNode.id
+	} else {
+		parentId = item.target.parentNode.id
+	}
 
 	// console.log("item:", item); // DELETE ME
 	// console.log("item.target:", item.target.parentNode.parentNode.id); // DELETE ME 
@@ -111,7 +119,13 @@ function isPathComplete(item) {
 		8: {combo: ["all matching"], total: 6, id: 8},
 	}
 	let count = 0;
-	let pathObjectiveCombo = pathObjectives[parentId]["combo"];
+
+	if(parentId != 5) {
+		pathObjectiveCombo = pathObjectives[parentId]["combo"];
+	}
+
+
+	console.log(pathObjectiveCombo);
 
 	// switch(parentId) { // DELETE ME
 	// 	case "1": 
@@ -287,16 +301,17 @@ function isPathComplete(item) {
 	}
 
 	// LEVEL 5
-	// parent element ID is two levels up, unlike ever other path that's just 1 level up
 	// TODO: check if all camp circles used, if yes complete, else not complete
-	if(item.target.parentNode.parentNode.id == 5) {
+	if(parentId == 5) {
 		// console.log(path)
-		// console.log(`You completed Path ${pathObjectives[item.target.parentNode.parentNode.id]["id"]}!`);
-		// let notification = `You completed Path ${pathObjectives[item.target.parentNode.parentNode.id]["id"]}!`;
-		// displayNotificationForShortTime(notification);
+		// console.log(`You completed Path ${pathObjectives[item.target.parentNode.parentNode.id]["id"]}!`); // DELETE ME
+		// let notification = `You completed Path ${pathObjectives[item.target.parentNode.parentNode.id]["id"]}!`; // DELETE ME
+		// displayNotificationForShortTime(notification); // DELETE ME
 
-		pathObjectiveCompleted(pathObjectives[item.target.parentNode.parentNode.id]);
 
+		// pathObjectiveCompleted(pathObjectives[item.target.parentNode.parentNode.id]);
+
+		pathObjectiveCompleted(pathObjectives[parentId]);
 		completePath(item.target);
 	}
 
@@ -348,7 +363,7 @@ function useAbility(item) {
 		item.setAttribute("class", "fas fa-circle medium");
 		item.setAttribute("completed", "true");
 
-		console.log(keptDice);
+		console.log(keptDice); // DELETE ME
 
 		// ability circles that affect dice
 		if(item.parentNode.id == "flip") {
@@ -548,7 +563,7 @@ function scoreGame(assignedAbilities) {
 			}
 		}
 	}
-	console.log("end of game scoring:", count);
+	// console.log("end of game scoring:", count); // DELETE ME
 	return count;
 }
 
@@ -556,7 +571,7 @@ function isGameOver() {
 // Game Over if:
 	// all 8 paths are complete
 	if(countCompletedPathCircles() === 8) {
-		console.log("GAME OVER. YOU WIN."); // DELETE ME
+		// console.log("GAME OVER. YOU WIN."); // DELETE ME
 		let finalScore = 	scoreGame(assignedAbilities);
 		let notification = "You win! Your score is " + finalScore + ".";
 		msg.textContent = notification;
@@ -578,7 +593,7 @@ function isGameOver() {
 	}
 
 	if(totalUsedAbilities === totalAbilityCount && countCompletedPathCircles() < 8) {
-		console.log("GAME OVER. NO MOVES LEFT.") // DELETE ME
+		// console.log("GAME OVER. NO MOVES LEFT.") // DELETE ME
 		let finalScore = scoreGame(assignedAbilities);
 		let notification = "Game Over. No Moves Left. Your score is " + finalScore + ".";
 		msg.textContent = notification;
