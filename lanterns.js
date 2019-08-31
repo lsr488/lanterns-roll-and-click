@@ -7,16 +7,17 @@ const completedPaths = [...pathCircles];
 const completedExp = [...expCircles];
 const assignedAbilities = [...abilities];
 
-// excludes camp exp circle from ability circle array
+// excludes camp reroll ability circle from experience circle array
 const shortCompletedExp = completedExp.slice(1);
-// camp exp circl only
-const campExp = completedExp.slice(0,1);
+// camp reroll ability circle only
+const campAbility = completedExp.slice(0,1);
 
 // add event listeners to camp abilities
-campExp.forEach(function(item) {
+campAbility.forEach(function(item) {
 	item.addEventListener("click", function(e) {
 		if(item.getAttribute("completed") === "false") {
 			useAbility(item);
+			// auotmatically appends reroll ability when camp ability circle clicked
 			appendAbility("reroll-any");
 			updateAbilityCount(e);
 		}
@@ -24,7 +25,8 @@ campExp.forEach(function(item) {
 });
 
 // add event listeners to exp circles
-// counts when ability circle is used
+	// useAbility == mark exp circle as used
+// counts when exp circle is used
 shortCompletedExp.forEach(function(item) {
 	item.addEventListener("click", function(e) {
 		if(item.getAttribute("completed") === "false") {
@@ -39,6 +41,8 @@ shortCompletedExp.forEach(function(item) {
 assignedAbilities.forEach(function(item) {
 	item.addEventListener("click", function(e) {
 		parentElement = e.target.parentNode;
+		console.log("parentElement:", e.target.parentNode);
+		console.log("e.target:", e.target);
 
 		// sets number of circles
 		if(parentElement.getAttribute("set") === "false") {
@@ -58,9 +62,29 @@ assignedAbilities.forEach(function(item) {
 			// console.log(e.target.children); // DELETE ME
 			updateAbilityCount(e);
 		}
+
 		isGameOver();
 	});
 });
+
+		// HERE 8/31/19, figuring out how to get camp exp circle to auto-fill exp in char sheet
+		// move camp exp to char sheet on click
+		// if(parentElement.id == "camp-exp") {
+		// 	moveCampExpToCharacterSheet(item);
+		// }
+function moveCampExpToCharacterSheet(item) {
+	// 	console.log("item:", item.children);
+	// // console.log("item kids:", item.children);
+	// for(let i = 0; i < item.children.length; i++) {
+	// 	// console.log(item.children[i]);
+	// 	console.log("kid classlist:", item.children[i].classList);
+	// 	if(item.children[i].classList.value.includes("circle")) {
+	// 		// useAbility(item);
+	// 		console.log("yes");					
+	
+	// 	}
+	// }
+}
 
 // add event listeners to path circles
 // counts path circles as completed
@@ -293,9 +317,8 @@ function isPathComplete(item) {
 			isGameOver();
 			resetBoth();
 		} else {
-			console.log(`You didn't complete Path ${pathObjectives[parentId]["id"]}.`);
-			let notification = `You didn't complete Path ${pathObjectives[parentId]["id"]}.`;
-			displayNotificationForShortTime(notification);
+		 	pathObjectiveNotCompleted(pathObjectives[parentId]);
+			// displayNotificationForShortTime(notification);
 			resetPath(item.target);
 		}
 	}
@@ -309,7 +332,7 @@ function isPathComplete(item) {
 		// displayNotificationForShortTime(notification); // DELETE ME
 
 
-		// pathObjectiveCompleted(pathObjectives[item.target.parentNode.parentNode.id]);
+		// pathObjectiveCompleted(pathObjectives[item.target.parentNode.parentNode.id]); // DELETE ME
 
 		pathObjectiveCompleted(pathObjectives[parentId]);
 		completePath(item.target);
@@ -328,7 +351,6 @@ function isPathComplete(item) {
 		// display whether path completed or not
 		if(count === pathObjectives[parentId]["total"]) {
 			pathObjectiveCompleted(pathObjectives[parentId]);
-			displayNotificationForShortTime(notification);
 			completePath(item.target);
 			isGameOver();
 			resetBoth();
@@ -363,7 +385,7 @@ function useAbility(item) {
 		item.setAttribute("class", "fas fa-circle medium");
 		item.setAttribute("completed", "true");
 
-		console.log(keptDice); // DELETE ME
+		// console.log(keptDice); // DELETE ME
 
 		// ability circles that affect dice
 		if(item.parentNode.id == "flip") {
@@ -384,7 +406,22 @@ function setAbility(item) {
 	item.setAttribute("class", "far fa-circle medium");
 	item.setAttribute("completed", "false");
 	item.addEventListener("click", function() {
+		// debugger
 		useAbility(item);
+
+		// auto fills next available exp circle when camp exp circle clicked
+		if(item.parentNode.id == "camp-exp") {
+			// console.log("shortCompletedExp:", shortCompletedExp); // DELETE ME
+			// for(let i = 0; i < shortCompletedExp.length; i++) {
+			// 	console.log(shortCompletedExp[i]);
+			// }
+			let found = shortCompletedExp.find(function(nextOpenCircle) {
+				return nextOpenCircle.classList.value === "far fa-circle medium";
+			});
+			// console.log("found element:", found); // DELETE ME
+			useAbility(found);
+			countUsedExperienceCircles();
+		}
 	});
 }
 
