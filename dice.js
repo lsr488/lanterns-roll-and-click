@@ -1,6 +1,5 @@
-// need to figure out how to combine choosing a die and an ability
 const buttonRollAllDice = document.getElementById("roll-dice");
-const buttonRollSomeDice = document.getElementById("roll-some-dice");
+// const buttonRollSomeDice = document.getElementById("roll-some-dice");
 const buttonResetRolledDice = document.getElementById("reset-rolls");
 const buttonResetBoth = document.getElementById("reset-both");
 const buttonChooseDice = document.getElementById("choose-dice");
@@ -15,11 +14,11 @@ buttonRollAllDice.addEventListener("click", function() {
 	rollDice();
 });
 
-buttonRollSomeDice.addEventListener("click", function() {
-	let input = prompt("How many dice to roll? Number 1-6.");
-	input = Number.parseInt(input, 10);
-	rollDice(input);
-});
+// buttonRollSomeDice.addEventListener("click", function() {
+// 	let input = prompt("How many dice to roll? Number 1-6.");
+// 	input = Number.parseInt(input, 10);
+// 	rollDice(input);
+// });
 
 buttonResetRolledDice.addEventListener("click", function() {
 	resetRolls();	
