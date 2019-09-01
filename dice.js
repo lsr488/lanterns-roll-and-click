@@ -126,7 +126,7 @@ function displayRolls() {
 function displayKeptDice() {
 	keptDice.sort();
 	// console.log(keptDice); // DELETE ME
-	keptDiceDisplay.innerHTML = "Kept Dice: <br/>" + changeDiceNumbersToIcons(keptDice, keptDiceDisplay);
+	keptDiceDisplay.innerHTML = "Chosen Dice: <br/>" + changeDiceNumbersToIcons(keptDice, keptDiceDisplay);
 }
 
 function createDieIcon(diceArray, diceDisplay) {
