@@ -61,7 +61,7 @@ buttonChooseDice.addEventListener("click", function() {
 });
 
 function checkChosenDiceExist(diceChoice) {
-	console.log(diceChoice);
+	// console.log(diceChoice); // DELETE ME
 	for(let i = 0; i < diceChoice.length; i++) {
 		if(!rolls.includes(diceChoice[i])) {
 			return false;
@@ -120,12 +120,13 @@ function removeChosenDice(input) {
 
 function displayRolls() {
 	rolls.sort();
-	console.log(rolls); // DELETE ME
+	// console.log(rolls); // DELETE ME
 	rolledDiceDisplay.innerHTML = "Rolled Dice: <br/>" + changeDiceNumbersToIcons(rolls, rolledDiceDisplay);
 }
 
 function displayKeptDice() {
 	keptDice.sort();
+	// console.log(keptDice); // DELETE ME
 	keptDiceDisplay.innerHTML = "Kept Dice: <br/>" + changeDiceNumbersToIcons(keptDice, keptDiceDisplay);
 }
 

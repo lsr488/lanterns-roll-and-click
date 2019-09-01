@@ -43,8 +43,8 @@ shortCompletedExp.forEach(function(item) {
 assignedAbilities.forEach(function(item) {
 	item.addEventListener("click", function(e) {
 		parentElement = e.target.parentNode;
-		console.log("parentElement:", e.target.parentNode);
-		console.log("e.target:", e.target);
+		// console.log("parentElement:", e.target.parentNode); // DELETE ME
+		// console.log("e.target:", e.target); // DELETE ME
 
 		// sets number of circles
 		if(parentElement.getAttribute("set") === "false") {
@@ -73,12 +73,12 @@ assignedAbilities.forEach(function(item) {
 // counts path circles as completed
 completedPaths.forEach(function(item) {
 	item.addEventListener("click", function(e) {
-		// console.log(item);
+		// console.log(item); // DELETE ME
 		// let parentElement = e.target.parentNode;
 		let parentId = e.target.parentNode.id;
 
 		// console.log("parentElement:", parentElement);  // DELETE ME
-		console.log("parentId:",parentId); // DELETE ME
+		// console.log("parentId:",parentId); // DELETE ME
 
 		if(item.getAttribute("completed") === "false") {
 			isPathComplete(e);
@@ -132,7 +132,7 @@ function isPathComplete(item) {
 	}
 
 
-	console.log(pathObjectiveCombo);
+	// console.log(pathObjectiveCombo); // DELETE ME
 
 	// switch(parentId) { // DELETE ME
 	// 	case "1": 
@@ -158,7 +158,7 @@ function isPathComplete(item) {
 	// 		break;
 	// 	}
 
-	console.log(keptDice); // DELETE ME
+	// console.log(keptDice); // DELETE ME
 
 
 	let keptDiceCopy = keptDice.slice();
@@ -309,7 +309,7 @@ function isPathComplete(item) {
 	// LEVEL 5
 	// TODO: check if all camp circles used, if yes complete, else not complete
 	if(parentId == 5) {
-		// console.log(path)
+		// console.log(path);  // DELETE ME
 		// console.log(`You completed Path ${pathObjectives[item.target.parentNode.parentNode.id]["id"]}!`); // DELETE ME
 		// let notification = `You completed Path ${pathObjectives[item.target.parentNode.parentNode.id]["id"]}!`; // DELETE ME
 		// displayNotificationForShortTime(notification); // DELETE ME
@@ -352,24 +352,24 @@ function isPathComplete(item) {
 }
 
 function checkPathFiveCompleted() {
-	// console.log(bothCampItems);
+	// console.log(bothCampItems); // DELETE ME
 	let campCircles = [];
 	let count = 0;
 	for(let i = 0; i < bothCampItems.length; i++) {
 		for(let j = 0; j < bothCampItems[i].children.length; j++) {
 			if(bothCampItems[i].children[j].classList.value.includes("circle")) {
-				// console.log(bothCampItems[i].children[j]);
+				// console.log(bothCampItems[i].children[j]); // DELETE ME
 				campCircles.push(bothCampItems[i].children[j]);
 			}
 		}
 	}
-	// console.log("campCircles:", campCircles);
+	// console.log("campCircles:", campCircles); // DELETE ME
 	for(let i = 0; i < campCircles.length; i++) {
 		if(campCircles[i].classList.value.includes("fas")) {
 			count++;
 		}
 	}
-	// console.log("count:", count);
+	// console.log("count:", count); // DELETE ME
 
 	if(count === campCircles.length) {
 		return true;
@@ -430,9 +430,9 @@ function setAbility(item) {
 		// auto fills next available exp circle when camp exp circle clicked
 		if(item.parentNode.id == "camp-exp") {
 			// console.log("shortCompletedExp:", shortCompletedExp); // DELETE ME
-			// for(let i = 0; i < shortCompletedExp.length; i++) {
-			// 	console.log(shortCompletedExp[i]);
-			// }
+			// for(let i = 0; i < shortCompletedExp.length; i++) { // DELETE ME
+			// 	console.log(shortCompletedExp[i]); // DELETE ME
+			// } // DELETE ME
 			let found = shortCompletedExp.find(function(nextOpenCircle) {
 				return nextOpenCircle.classList.value === "far fa-circle medium";
 			});
@@ -499,10 +499,10 @@ function countUsedAbilityCircles() {
 }
 
 function countTotalAbilityCircles(input) {
-	// console.log("countTAC input:", input);
-	// console.log("countTAC target:", input.target);
-	// console.log("countTAC target parentElement id:", input.target.parentElement.id);
-	// let inputCircles = input.target.parentNode;
+	// console.log("countTAC input:", input); // DELETE ME
+	// console.log("countTAC target:", input.target); // DELETE ME
+	// console.log("countTAC target parentElement id:", input.target.parentElement.id); // DELETE ME
+	// let inputCircles = input.target.parentNode; // DELETE ME
 	// console.log("input Circles:", inputCircles); // DELETE ME
 	let abilityCircles = assignedAbilities.slice(2);
 	// console.log("ability array:", abilityCircles);
@@ -515,7 +515,7 @@ function countTotalAbilityCircles(input) {
 			newAbilityCircles.push(abilityCircles[i]);
 		}
 	}
-	// console.log("NEW ability circs:", newAbilityCircles[0].children);
+	// console.log("NEW ability circs:", newAbilityCircles[0].children); // DELETE ME
 	for(let j = 0; j < newAbilityCircles.length; j++) {
 		// console.log(newAbilityCircles[j].children); // DELETE ME
 		for(let k = 0; k < newAbilityCircles[j].children.length; k++) {
@@ -606,7 +606,7 @@ function scoreGame(assignedAbilities) {
 	// console.log(scoredAbilities); // DELETE ME
 
 	for(let i = 0; i < scoredAbilities.length; i++) {
-		// console.log(scoredAbilities[i].children);
+		// console.log(scoredAbilities[i].children); // DELETE ME
 		let children = scoredAbilities[i].children;
 		for(let j = 0; j < children.length; j++) {
 			// console.log("children:", children[j].classList); // DELETE ME
