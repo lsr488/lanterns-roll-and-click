@@ -1,4 +1,4 @@
-# A browser-based adaptation of Lantern, a roll & write created by D.Di Maggio [source](https://boardgamegeek.com/thread/2202582/wip-lantern-solitaire-adventure-roll-write-game-de).
+# A browser-based adaptation of Lantern, a roll & write created by D.Di Maggio ([source](https://boardgamegeek.com/thread/2202582/wip-lantern-solitaire-adventure-roll-write-game-de)).
 
 ## **Set Up**
 1. Click Roll 6 dice.
