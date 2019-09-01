@@ -121,7 +121,7 @@
 	</div>
 
 	<div id="buttons">
-		<div id="kept-dice">Kept Dice:</div>
+		<div id="kept-dice">Chosen Dice:</div>
 		<div id="rolled-dice">Rolled Dice:</div>
 		<button id="roll-dice">Roll All Dice (6)</button>
 		<button id="roll-some-dice">Roll Some Dice</button>
@@ -131,6 +131,79 @@
 		<button id="choose-dice">Choose Dice</button>
 	</div>
 </div>
+
+	<div id="rules">
+		<details open>
+			<summary>Instructions (click to close or expand)</summary>
+
+			<details open>
+				<summary><strong>Set Up</strong></summary>
+				<ol>
+					<li>Click Roll 6 dice.</li>
+					<li>Assign 1 die to each ability (flip, increase/decrease, reroll 1, reroll any). Do so by clicking the ability name and inputting the chosen die's value.</li>
+					<li>Assign 1 unused die to the experience track. Do so by clicking the number of circles that correspond to the die's value.</li>
+					<li>The last die is assigned to the camp experience track. Do so by clicking the book icon in the camp on Path 5.</li>
+					<li>Click Reset Rolled Dice to get started.</li>
+				</ol>
+			</details>
+
+			<details open>
+				<summary><strong>How to Play</strong></summary>
+				<ol>
+					<li><strong>Step 1: Entering the Zone</strong></li>
+						<ul>
+							<li>Begin by clicking Roll All Dice (6).</li>
+							<li>Any time you roll a <i class="fas fa-dice-one"></i> (1), click 1 experience circle on the right-hand side.</li>
+							<li>If you rolled any of the dice needed for a particular zone, click Choose Dice and input the dice values, separated by commas. If you have all of the dice required to complete the zone, move on to Step 3 (Leaving the Zone). If not, continue to Step 2 (Fighting the Enemies).</li>
+						</ul>
+					<li><strong>Step 2: Fighting the Enemies</strong></li>
+						<ul>
+							<li>Manipulate the dice values by using the abilities on the right-hand side. Click on a circle in each ability line to activate the ability.</li>
+							<li><strong>Flip:</strong> Flips the chosen die to the opposite side. E.G., <i class="fas fa-dice-one"></i> (1) becomes <i class="fas fa-dice-six"></i> (6), <i class="fas fa-dice-two"></i> (2) becomes <i class="fas fa-dice-five"></i> (5), <i class="fas fa-dice-three"></i> (3) becomes <i class="fas fa-dice-one"></i> (4), etc.</li>
+							<li><strong>Increase/Decrease:</strong> Increase or decrease the value of the chosen die by 1. E.G., <i class="fas fa-dice-five"></i> (5) could become a <i class="fas fa-dice-six"></i> (6) or <i class="fas fa-dice-four"></i> (4).</li>
+							<li><strong>Reroll 1:</strong> Reroll any 1 die of your choice.</li>
+							<li><strong>Reroll Any:</strong> Reroll any number of dice that haven't yet been kept to complete the zone. You can also reroll just 1 die.</li>
+							<li>Remember to click an Experience circle each time you roll a <i class="fas fa-dice-one"></i> (1)!</li>
+							<li>The symbols <i class="fas fa-times"></i> and <i class="fas fa-plus"></i> correspond to any die result (but they must match). Zone 1 includes a three-of-a-kind. Zone 2 includes a pair. Zone 4 is two different three-of-a-kinds. In Zone 8, all dice must match.</li>
+							<li>Once you've chosen all of the dice required to complete a zone, proceed to Step 3 (Leaving the Zone).</li>
+						</ul>
+					<li><strong>Step 3: Leaving the Zone</strong></li>
+						<ul>
+							<li>To leave the zone, click the circle next to the zone number to mark it as complete.</li>
+							<li>If you complete an entire Experience row, you can add 1 circle to an ability of your choice (you'll be prompted to do this automatically). You can't have more than 7 circles per ability.</li>
+							<li>Proceed to the next zone (back to Step 1).</li>
+						</ul>
+					<li><strong>Special Zone - Entering Zone 5 (The Bonfire / Camp)</strong></li>
+						<ul>
+							<li>Click the circle next to the Reroll Any symbol in the camp. This will automatically add 1 circle to the Reroll Any ability on the right-hand side for future use.</li>
+							<li>Click the circle(s) next to the Exp symbol (an open book) in the camp. This will automatically add experience to the experience tracker on the right-hand side. If you've completed an Experience Row, you'll be prompted to increase an ability of your choice.</li>
+							<li>Once you've used all of the circles in camp, proceed to Step 3 (Leaving the Zone).</li>
+						</ul>
+					</ol>
+			</details>
+
+			<details open>
+				<summary><strong>End of the Game</strong></summary>
+					<ol>
+						<li>You win the game if you're able to mark all zones as complete.</li>
+						<li>You lose if you have no ability cirlces left and you're unable to complete the zone.</li>
+					</ol>				
+			</details>
+
+			<details open>
+				<summary><strong>Scoring</strong></summary>
+					<ul>
+						<li>Your score is equal to the number of used ability circles. Your score will automatically be calculated. The lower the score, the better.</li>
+						<li><strong>16+</strong> - Promising Adventurer</li>
+						<li><strong>5-15</strong> - Master in Arms</li>
+						<li><strong>1-5</strong> - Heroic Swashbuckler</li>
+						<li><strong>0</strong> - Legendary Lantern Lord</li>
+					</ul>				
+			</details>
+		</details>
+		<p>Original printable PDF instructions and adventure sheets, created by the user D.Di Maggio, are available <a href="https://boardgamegeek.com/thread/2202582/wip-lantern-solitaire-adventure-roll-write-game-de">here</a>, along with a video demonstration.</p>
+
+	</div>
 
 <script type="text/javascript" src="lanterns.js"></script>
 <script type="text/javascript" src="dice.js"></script>

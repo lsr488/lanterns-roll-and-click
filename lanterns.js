@@ -380,12 +380,12 @@ function checkPathFiveCompleted() {
 
 
 function pathObjectiveCompleted(pathObjective) {
-		let notification = `You completed Path ${pathObjective["id"]}!`;
+		let notification = `You completed Zone ${pathObjective["id"]}!`;
 		displayNotificationForShortTime(notification);
 }
 
 function pathObjectiveNotCompleted(pathObjective) {
-		let notification = `You didn't complete Path ${pathObjective["id"]}.`;
+		let notification = `You don't have the correct dice chosen to complete Zone ${pathObjective["id"]}.`;
 		displayNotificationForShortTime(notification);	
 }
 

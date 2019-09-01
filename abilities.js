@@ -137,7 +137,7 @@ function reRollAnyDice(clickedElement) {
 			} 
 		}
 
-		console.log("match count:", count)
+		// console.log("match count:", count); // DELETE ME
 			
 		if(count != input.length) {
 			alert("One or more dice don't exist. Try again.");
@@ -145,7 +145,7 @@ function reRollAnyDice(clickedElement) {
 		}
 
 		if(count === input.length) {
-			console.log("all match");
+			// console.log("all match"); // DELETE ME
 			// remove 
 			removeChosenDice(input);
 
