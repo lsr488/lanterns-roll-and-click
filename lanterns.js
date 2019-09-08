@@ -43,8 +43,6 @@ shortCompletedExp.forEach(function(item) {
 assignedAbilities.forEach(function(item) {
 	item.addEventListener("click", function(e) {
 		parentElement = e.target.parentNode;
-		// console.log("parentElement:", e.target.parentNode); // DELETE ME
-		// console.log("e.target:", e.target); // DELETE ME
 
 		// sets number of circles
 		if(parentElement.getAttribute("set") === "false") {
@@ -60,8 +58,6 @@ assignedAbilities.forEach(function(item) {
 			}	
 
 			parentElement.setAttribute("set", "true");
-			// console.log(e); // DELETE ME
-			// console.log(e.target.children); // DELETE ME
 			updateAbilityCount(e);
 		}
 
@@ -73,12 +69,7 @@ assignedAbilities.forEach(function(item) {
 // counts path circles as completed
 completedPaths.forEach(function(item) {
 	item.addEventListener("click", function(e) {
-		// console.log(item); // DELETE ME
-		// let parentElement = e.target.parentNode;
 		let parentId = e.target.parentNode.id;
-
-		// console.log("parentElement:", parentElement);  // DELETE ME
-		// console.log("parentId:",parentId); // DELETE ME
 
 		if(item.getAttribute("completed") === "false") {
 			isPathComplete(e);
@@ -111,9 +102,6 @@ function isPathComplete(item) {
 	} else {
 		parentId = item.target.parentNode.id
 	}
-
-	// console.log("item:", item); // DELETE ME
-	// console.log("item.target:", item.target.parentNode.parentNode.id); // DELETE ME 
 
 	const pathObjectives = {
 		1: {combo: [4, 5, "three-of-a-kind"], total: 3, id: 1},
@@ -158,9 +146,6 @@ function isPathComplete(item) {
 	// 		break;
 	// 	}
 
-	// console.log(keptDice); // DELETE ME
-
-
 	let keptDiceCopy = keptDice.slice();
 	
 		// LEVEL 1, 5 dice / 3-of-a-kind
@@ -193,7 +178,7 @@ function isPathComplete(item) {
 		 } else {
 		 	pathObjectiveNotCompleted(pathObjectives[parentId]);
 			resetPath(item.target);
-			// what else happens when you don't have the dice? can you reset abilities?
+			// TODO: what else happens when you don't have the dice? can you reset abilities?
 		}
 	}
 
@@ -400,43 +385,44 @@ function resetPath(item) {
 }
 
 function useAbility(item) {
-		item.setAttribute("class", "fas fa-circle medium");
-		item.setAttribute("completed", "true");
+	// stops used circled from being re-used
+	if(item.classList.value.includes("fas")) {
+		// console.log("fas included"); // DELETE ME
+		// console.log("Ability circle already used. Try again."); // DELETE ME
+		return;
+	}
 
-		// console.log(keptDice); // DELETE ME
+	// sets open circle to closed/used
+	item.setAttribute("class", "fas fa-circle medium");
+	item.setAttribute("completed", "true");
 
-		// ability circles that affect dice
-		if(item.parentNode.id == "flip") {
-			flipAbility(item);
-		}
-		if(item.parentNode.id === "inc-dec") {
-			incDec(item);
-		}
-		if(item.parentNode.id === "reroll-1") {
-			reRollOneDie(item);
-		}
-		if(item.parentNode.id === "reroll-any") {
-			reRollAnyDice(item);
-		}
+	// ability circles that affect dice
+	if(item.parentNode.id == "flip") {
+		flipAbility(item);
+	}
+	if(item.parentNode.id === "inc-dec") {
+		incDec(item);
+	}
+	if(item.parentNode.id === "reroll-1") {
+		reRollOneDie(item);
+	}
+	if(item.parentNode.id === "reroll-any") {
+		reRollAnyDice(item);
+	}
 }
 
 function setAbility(item) {
 	item.setAttribute("class", "far fa-circle medium");
 	item.setAttribute("completed", "false");
+
 	item.addEventListener("click", function() {
-		// debugger
 		useAbility(item);
 
 		// auto fills next available exp circle when camp exp circle clicked
 		if(item.parentNode.id == "camp-exp") {
-			// console.log("shortCompletedExp:", shortCompletedExp); // DELETE ME
-			// for(let i = 0; i < shortCompletedExp.length; i++) { // DELETE ME
-			// 	console.log(shortCompletedExp[i]); // DELETE ME
-			// } // DELETE ME
 			let found = shortCompletedExp.find(function(nextOpenCircle) {
 				return nextOpenCircle.classList.value === "far fa-circle medium";
 			});
-			// console.log("found element:", found); // DELETE ME
 			useAbility(found);
 			countUsedExperienceCircles();
 		}
@@ -488,34 +474,29 @@ function countUsedAbilityCircles() {
 
 	for(let i = 0; i < abilityCircles.length; i++) {
 		for(let j = 0; j < abilityCircles[i].children.length; j++) {
-			// let usedCircles = abilityCircles[i].children[j].classList;
 			if(abilityCircles[i].children[j].classList.value === "fas fa-circle medium") {
 				count++;
 			}
 		}
 	}
-	// console.log("used ability circle count:", count); // DELETE ME
 	return count;	
 }
 
 function countTotalAbilityCircles(input) {
-	// console.log("countTAC input:", input); // DELETE ME
-	// console.log("countTAC target:", input.target); // DELETE ME
-	// console.log("countTAC target parentElement id:", input.target.parentElement.id); // DELETE ME
-	// let inputCircles = input.target.parentNode; // DELETE ME
-	// console.log("input Circles:", inputCircles); // DELETE ME
+	// gets just ability circles (no camp circles)
 	let abilityCircles = assignedAbilities.slice(2);
-	// console.log("ability array:", abilityCircles);
 	let count = 0;
 	let newAbilityCircles = [];
 	let countTACid = input.target.parentElement.id;
 
+	// gets just the selected ability
 	for(let i = 0; i < abilityCircles.length; i++) {
 		if(abilityCircles[i].id == (countTACid)) {
 			newAbilityCircles.push(abilityCircles[i]);
 		}
 	}
-	// console.log("NEW ability circs:", newAbilityCircles[0].children); // DELETE ME
+
+	// counts the numbr of circles and increments count variable
 	for(let j = 0; j < newAbilityCircles.length; j++) {
 		// console.log(newAbilityCircles[j].children); // DELETE ME
 		for(let k = 0; k < newAbilityCircles[j].children.length; k++) {
@@ -532,12 +513,14 @@ function appendAbilityCount(input) {
 	let selectedAbility = document.getElementById(input);
 	let count = 0;
 
+	// adds number of circles again and increments count variable
 	for(let i = 0; i < selectedAbility.children.length; i++) {
 		if(selectedAbility.children[i].classList.value.includes("circle")) {
 			count++;
 		}
 	}
 
+	// display new count
 	selectedAbility.children[0].children[0].textContent = `(${count})`;
 }
 
@@ -579,7 +562,7 @@ function updateAbilityCount(input) {
 }
 
 function increaseAbility() {
-	let input = prompt("Experience row completed! Increase an ability of your choice by 1: flip, inc-dec, reroll-1, reroll-any");
+	let input = prompt("Experience row completed! Choose an ability to increase by 1: flip, inc-dec, reroll-1, reroll-any");
 
 	input = input.toLowerCase();
 	appendAbility(input);
@@ -589,6 +572,7 @@ function appendAbility(input) {
 	const selectedAbility = document.getElementById(input);
 	const circle = document.createElement("i");	
 
+	// adds new circle to ability
 	for(let i = 0; i < abilities.length; i++) {
 		if(abilities[i].id === input) {
 			setAbility(circle);
@@ -596,6 +580,7 @@ function appendAbility(input) {
 		}
 	}
 
+	// recount number of ability circles
 	appendAbilityCount(input);
 }
 
@@ -603,22 +588,16 @@ function scoreGame(assignedAbilities) {
 	let scoredAbilities = assignedAbilities.slice(2);
 	let count = 0;
 
-	// console.log(scoredAbilities); // DELETE ME
-
+	// counts number of used ("fas") circles
 	for(let i = 0; i < scoredAbilities.length; i++) {
-		// console.log(scoredAbilities[i].children); // DELETE ME
 		let children = scoredAbilities[i].children;
 		for(let j = 0; j < children.length; j++) {
-			// console.log("children:", children[j].classList); // DELETE ME
 			let childrenCircles = children[j].classList;
-			// console.log("CCV:", childrenCircles.value); // DELETE ME
 			if(childrenCircles.value === "fas fa-circle medium") {
-				// console.log("CLOSED CIRCLE"); // DELETE ME
 				count++;
 			}
 		}
 	}
-	// console.log("end of game scoring:", count); // DELETE ME
 	return count;
 }
 
@@ -626,7 +605,6 @@ function isGameOver() {
 // Game Over if:
 	// all 8 paths are complete
 	if(countCompletedPathCircles() === 8) {
-		// console.log("GAME OVER. YOU WIN."); // DELETE ME
 		let finalScore = 	scoreGame(assignedAbilities);
 		let notification = "You win! Your score is " + finalScore + ".";
 		msg.textContent = notification;
@@ -648,7 +626,6 @@ function isGameOver() {
 	}
 
 	if(totalUsedAbilities === totalAbilityCount && countCompletedPathCircles() < 8) {
-		// console.log("GAME OVER. NO MOVES LEFT.") // DELETE ME
 		let finalScore = scoreGame(assignedAbilities);
 		let notification = "Game Over. No Moves Left. Your score is " + finalScore + ".";
 		msg.textContent = notification;
