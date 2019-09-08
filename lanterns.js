@@ -304,10 +304,12 @@ function isPathComplete(item) {
 
 
 		// HERE 8/31/19 trying to get 5 to only complete if all circles in camp have been used. currently firing even if all circles are empty
-		if(checkPathFiveCompleted) {
+		if(checkPathFiveCompleted() == true) {
+			console.log("if");
 			pathObjectiveCompleted(pathObjectives[parentId]);
 			completePath(item.target);
 		} else {
+			console.log("else");
 		 	pathObjectiveNotCompleted(pathObjectives[parentId]);
 			resetPath(item.target);			
 		}
@@ -337,25 +339,26 @@ function isPathComplete(item) {
 }
 
 function checkPathFiveCompleted() {
-	// console.log(bothCampItems); // DELETE ME
 	let campCircles = [];
 	let count = 0;
+
+	// gets number of circles to use in camp
 	for(let i = 0; i < bothCampItems.length; i++) {
 		for(let j = 0; j < bothCampItems[i].children.length; j++) {
 			if(bothCampItems[i].children[j].classList.value.includes("circle")) {
-				// console.log(bothCampItems[i].children[j]); // DELETE ME
 				campCircles.push(bothCampItems[i].children[j]);
 			}
 		}
 	}
-	// console.log("campCircles:", campCircles); // DELETE ME
+
+	// increments count for each circle used
 	for(let i = 0; i < campCircles.length; i++) {
 		if(campCircles[i].classList.value.includes("fas")) {
 			count++;
 		}
 	}
-	// console.log("count:", count); // DELETE ME
 
+	// checks if number of used circles equals total number of camp circles
 	if(count === campCircles.length) {
 		return true;
 	} else {
@@ -363,15 +366,19 @@ function checkPathFiveCompleted() {
 	}
 }
 
-
 function pathObjectiveCompleted(pathObjective) {
 		let notification = `You completed Zone ${pathObjective["id"]}!`;
 		displayNotificationForShortTime(notification);
 }
 
 function pathObjectiveNotCompleted(pathObjective) {
-		let notification = `You don't have the correct dice chosen to complete Zone ${pathObjective["id"]}.`;
+	if(pathObjective.id == 5) {
+		let notification = `Use all camp abilities before proceeding.`;
 		displayNotificationForShortTime(notification);	
+	} else {
+		let notification = `Your dice selections don't complete Zone ${pathObjective.id}.`;
+		displayNotificationForShortTime(notification);			
+	}
 }
 
 function completePath(item) {
@@ -387,8 +394,6 @@ function resetPath(item) {
 function useAbility(item) {
 	// stops used circled from being re-used
 	if(item.classList.value.includes("fas")) {
-		// console.log("fas included"); // DELETE ME
-		// console.log("Ability circle already used. Try again."); // DELETE ME
 		return;
 	}
 
