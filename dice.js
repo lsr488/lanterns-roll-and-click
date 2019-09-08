@@ -1,5 +1,4 @@
 const buttonRollAllDice = document.getElementById("roll-dice");
-// const buttonRollSomeDice = document.getElementById("roll-some-dice");
 const buttonResetRolledDice = document.getElementById("reset-rolls");
 const buttonResetBoth = document.getElementById("reset-both");
 const buttonChooseDice = document.getElementById("choose-dice");
@@ -13,12 +12,6 @@ let rolls = [];
 buttonRollAllDice.addEventListener("click", function() {
 	rollDice();
 });
-
-// buttonRollSomeDice.addEventListener("click", function() {
-// 	let input = prompt("How many dice to roll? Number 1-6.");
-// 	input = Number.parseInt(input, 10);
-// 	rollDice(input);
-// });
 
 buttonResetRolledDice.addEventListener("click", function() {
 	resetRolls();	
@@ -60,7 +53,6 @@ buttonChooseDice.addEventListener("click", function() {
 });
 
 function checkChosenDiceExist(diceChoice) {
-	// console.log(diceChoice); // DELETE ME
 	for(let i = 0; i < diceChoice.length; i++) {
 		if(!rolls.includes(diceChoice[i])) {
 			return false;
@@ -93,20 +85,15 @@ function chooseDice(num) {
 
 function unchooseDie(input) {
 	let chosenDie = input;
-	// console.log("chosenDie:", chosenDie); // DELETE ME
 	let index = keptDice.indexOf(chosenDie);
-	// console.log("index:", index); // DELETE ME
 	keptDice.splice(index, 1);
-	// console.log(keptDice); // DELETE ME
 	rolls.push(chosenDie);
-	// console.log(keptDice);
-	// console.log(rolls); // DELETE ME
 	displayRolls();
 	displayKeptDice();
 }
 
 function removeChosenDice(input) {
-// currently, if chosen die doesn't exist in rolls, then last die is spliced out regardless of value
+	// currently, if chosen die doesn't exist in rolls, then last die is spliced out regardless of value
 	let chosenDice = input; // needs to be an array
 
 	for(let i = 0; i < chosenDice.length; i++) {
@@ -119,13 +106,11 @@ function removeChosenDice(input) {
 
 function displayRolls() {
 	rolls.sort();
-	// console.log(rolls); // DELETE ME
 	rolledDiceDisplay.innerHTML = "Rolled Dice: <br/>" + changeDiceNumbersToIcons(rolls, rolledDiceDisplay);
 }
 
 function displayKeptDice() {
 	keptDice.sort();
-	// console.log(keptDice); // DELETE ME
 	keptDiceDisplay.innerHTML = "Chosen Dice: <br/>" + changeDiceNumbersToIcons(keptDice, keptDiceDisplay);
 }
 

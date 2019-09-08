@@ -119,33 +119,6 @@ function isPathComplete(item) {
 		pathObjectiveCombo = pathObjectives[parentId]["combo"];
 	}
 
-
-	// console.log(pathObjectiveCombo); // DELETE ME
-
-	// switch(parentId) { // DELETE ME
-	// 	case "1": 
-	// 		chooseDice([3,3, 3, 4,5]); 
-	// 		break;
-	// 	case "2":
-	// 		chooseDice([2, 3, 3, 3, 4]);
-	// 		break;
-	// 	case "3":
-	// 		chooseDice([3, 4, 5, 2, 2, 2]);
-	// 		break;		
-	// 	case "4":
-	// 		chooseDice([1, 1, 1, 2, 2, 2]);
-	// 		break;
-	// 	case "6":
-	// 		chooseDice([2, 3, 4, 1, 1, 1]);
-	// 		break;
-	// 	case "7":
-	// 		chooseDice([4, 5, 6, 1, 1, 1]);
-	// 		break;
-	// 	case "8":
-	// 		chooseDice([3, 3, 3, 3, 3, 3]);
-	// 		break;
-	// 	}
-
 	let keptDiceCopy = keptDice.slice();
 	
 		// LEVEL 1, 5 dice / 3-of-a-kind
@@ -286,30 +259,17 @@ function isPathComplete(item) {
 			resetBoth();
 		} else {
 		 	pathObjectiveNotCompleted(pathObjectives[parentId]);
-			// displayNotificationForShortTime(notification);
 			resetPath(item.target);
 		}
 	}
 
 	// LEVEL 5
-	// TODO: check if all camp circles used, if yes complete, else not complete
 	if(parentId == 5) {
-		// console.log(path);  // DELETE ME
-		// console.log(`You completed Path ${pathObjectives[item.target.parentNode.parentNode.id]["id"]}!`); // DELETE ME
-		// let notification = `You completed Path ${pathObjectives[item.target.parentNode.parentNode.id]["id"]}!`; // DELETE ME
-		// displayNotificationForShortTime(notification); // DELETE ME
-
-
-		// pathObjectiveCompleted(pathObjectives[item.target.parentNode.parentNode.id]); // DELETE ME
-
-
-		// HERE 8/31/19 trying to get 5 to only complete if all circles in camp have been used. currently firing even if all circles are empty
+		// counts used vs total camp circles
 		if(checkPathFiveCompleted() == true) {
-			console.log("if");
 			pathObjectiveCompleted(pathObjectives[parentId]);
 			completePath(item.target);
 		} else {
-			console.log("else");
 		 	pathObjectiveNotCompleted(pathObjectives[parentId]);
 			resetPath(item.target);			
 		}

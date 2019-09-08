@@ -35,14 +35,12 @@ function flipAbility(clickedElement) {
 }
 
 function incDec(clickedElement) {
-	// debugger
 	// clickedElement comes from useAbility in lanterns.js
 	let input = prompt('Which die do you want to increment up or down? Ex: "5 +" or "5 -"');
 	let incDecValue = [];
 
 	// allows Esc to cancel ability choice and un-uses ability circle
 	if(input === null) {
-		alert("Ability choice cancelled.");
 		resetAbility(clickedElement);
 		return;
 	}
@@ -84,7 +82,7 @@ function reRollOneDie(clickedElement) {
 
 	// allows Esc to cancel ability choice and un-uses ability circle
 	if(input === null) {
-		alert("Ability choice cancelled.");
+		// alert("Ability choice cancelled."); // DELETE ME
 		resetAbility(clickedElement);
 		return;
 	}
@@ -114,7 +112,6 @@ function reRollAnyDice(clickedElement) {
 
 	// allows Esc to cancel ability choice and un-uses ability circle
 	if(input === null) {
-		alert("Ability choice cancelled.");
 		resetAbility(clickedElement);
 		return;
 	}
@@ -124,7 +121,6 @@ function reRollAnyDice(clickedElement) {
 		resetRolls();
 		rollDice(remaining);
 	} else {
-		// debugger
 		input = input.split(",");
 
 		for(let i = 0; i < input.length; i++) {
@@ -136,20 +132,14 @@ function reRollAnyDice(clickedElement) {
 				count++;
 			} 
 		}
-
-		// console.log("match count:", count); // DELETE ME
-			
+		
 		if(count != input.length) {
 			alert("One or more dice don't exist. Try again.");
 			resetAbility(clickedElement);			
 		}
 
 		if(count === input.length) {
-			// console.log("all match"); // DELETE ME
-			// remove 
 			removeChosenDice(input);
-
-			// reroll # of dice
 			rollDice(input.length);
 		}
 	}
