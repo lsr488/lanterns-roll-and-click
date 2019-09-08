@@ -1,6 +1,5 @@
 # A browser-based adaptation of Lantern, a roll & write created by D.Di Maggio ([source](https://boardgamegeek.com/thread/2202582/wip-lantern-solitaire-adventure-roll-write-game-de)).
 
-## Github Page
 [Click here to play](https://lsr488.github.io/lanterns-roll-and-click/).
 
 ## **Set Up**
