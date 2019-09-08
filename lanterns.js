@@ -85,13 +85,6 @@ function displayNotificationForShortTime(notification) {
 	}, 4000);
 }
 
-function keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, element) {
-	let i = keptDiceCopy.indexOf(pathObjectiveCombo[element]);
-	keptDiceCopy.splice(i, 1);
-	return keptDiceCopy;
-}
-
-
 function isPathComplete(item) {
 	let parentId;
 	let pathObjectiveCombo;
@@ -124,15 +117,13 @@ function isPathComplete(item) {
 		// LEVEL 1, 5 dice / 3-of-a-kind
 	if(parentId == 1) {
 	 // does keptDice include first solution element
-		if(keptDiceCopy.includes(pathObjectiveCombo[0])) {
+		if(checkPathSpecificValueSolution(keptDiceCopy, pathObjectiveCombo, 0)) {
 			count++;
-			keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, 0);
 		}
 
 		// does keptDice include second solution element
-		if(keptDiceCopy.includes(pathObjectiveCombo[1])) {
+		if(checkPathSpecificValueSolution(keptDiceCopy, pathObjectiveCombo, 1)) {
 			count++;
-			keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, 1);
 		}
 		
 		// check for three-of-a-kind
@@ -158,21 +149,18 @@ function isPathComplete(item) {
 	// LEVEL 2; 5 dice / pair
 	if(parentId == 2) {
 	 // does keptDice include first solution element
-		if(keptDiceCopy.includes(pathObjectiveCombo[0])) {
+		if(checkPathSpecificValueSolution(keptDiceCopy, pathObjectiveCombo, 0)) {
 			count++;
-			keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, 0);
 		}
 
 		// does keptDice include second solution element
-		if(keptDiceCopy.includes(pathObjectiveCombo[1])) {
+		if(checkPathSpecificValueSolution(keptDiceCopy, pathObjectiveCombo, 1)) {
 			count++;
-			keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, 1);
 		}
 		
 		// does keptDice include third solution element
-		if(keptDiceCopy.includes(pathObjectiveCombo[2])) {
+		if(checkPathSpecificValueSolution(keptDiceCopy, pathObjectiveCombo, 2)) {
 			count++;
-			keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, 2);
 		}
 		
 		// check for pair
@@ -197,22 +185,18 @@ function isPathComplete(item) {
 	// LEVEL 3 & 6 & 7, 6 dice / three-of-a-kind
 	if(parentId == 3 || parentId == 6 || parentId == 7) {
 		// does keptDice include first solution element
-		if(keptDiceCopy.includes(pathObjectiveCombo[0])) {
+		if(checkPathSpecificValueSolution(keptDiceCopy, pathObjectiveCombo, 0)) {
 			count++;
-			keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, 0);
 		}
 
 		// does keptDice include second solution element
-		if(keptDiceCopy.includes(pathObjectiveCombo[1])) {
+		if(checkPathSpecificValueSolution(keptDiceCopy, pathObjectiveCombo, 1)) {
 			count++;
-			keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, 1);
 		}
 
-
 		// does keptDice include third solution element
-		if(keptDiceCopy.includes(pathObjectiveCombo[2])) {
+		if(checkPathSpecificValueSolution(keptDiceCopy, pathObjectiveCombo, 2)) {
 			count++;
-			keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, 2);
 		}
 		
 		// check for three-of-a-kind
@@ -324,6 +308,19 @@ function checkPathFiveCompleted() {
 	} else {
 		return false;
 	}
+}
+
+function checkPathSpecificValueSolution(keptDiceCopy, pathObjectiveCombo, index) {
+	if(keptDiceCopy.includes(pathObjectiveCombo[index])) {
+		keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, index);
+	}
+	return true;
+}
+
+function keptDiceCheckSpecificValue(keptDiceCopy, pathObjectiveCombo, element) {
+	let i = keptDiceCopy.indexOf(pathObjectiveCombo[element]);
+	keptDiceCopy.splice(i, 1);
+	return keptDiceCopy;
 }
 
 function pathObjectiveCompleted(pathObjective) {
