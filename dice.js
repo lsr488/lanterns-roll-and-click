@@ -93,7 +93,6 @@ function unchooseDie(input) {
 }
 
 function removeChosenDice(input) {
-	// currently, if chosen die doesn't exist in rolls, then last die is spliced out regardless of value
 	let chosenDice = input; // needs to be an array
 
 	for(let i = 0; i < chosenDice.length; i++) {
