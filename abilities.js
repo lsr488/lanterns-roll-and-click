@@ -56,6 +56,13 @@ function incDec(clickedElement) {
 		return;
 	}
 
+	// checks if incrementing 6; 7 doesn't exist
+	if(input[0] === "+" && input[1] === 6) {
+		alert("Choice doesn't exist. Try again.");
+		resetAbility(clickedElement);
+		return;
+	}
+
 	// checks if inc or dec selected
 	if(input[0] === "+" || input[0] === "-") {
 		// inc value
