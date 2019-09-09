@@ -31,6 +31,10 @@ buttonChooseDice.addEventListener("click", function() {
 	let diceChoice = [];
 	let input = prompt("Input the pip value(s) of the die/dice you want to keep. To choose multiple at once, separate with commas. Numbers 1-6.")
 
+	if(input == null) {
+		return;
+	}
+
 	if(input.includes(",")) {
 		input = input.split(",");
 
