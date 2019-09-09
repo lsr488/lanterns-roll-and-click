@@ -6,9 +6,18 @@ body {
 	font-family: monospace;
 }
 
+ol {
+	margin-top: 0.5em;
+}
+
 li {
+	margin-top: 0;
 	margin-bottom: .25em;
 	font-size: 150%;
+}
+
+button {
+	height: 30px;
 }
 
 p {
@@ -21,19 +30,46 @@ details > summary {
 }
 
 #window {
-	width: 800px;
+	width: 910px;
 	margin: auto;
+	display: grid;
+	grid-template-rows: 35px 395px 125px;
 }
 
-#buttons {
-	position: absolute;
-	top: 515px;
-	/*left: 25%;*/
+#sheet {
+	display: grid;
+	grid-row: 2 / 3;
+	grid-template-columns: 335px 450px 125px;
+	justify-items: start;
+	align-items: start;
 }
 
 #rules {
 	position: absolute;
-	top: 670px;
+	top: 660px;
+}
+
+#buttons {
+	display: grid;
+	grid-template-rows: auto auto auto auto auto;
+	grid-row-gap: 10px;
+}
+
+#dice {
+	display: grid;
+	grid-row: 3 / 4;
+	align-self: end;
+}
+
+#path {
+}
+
+#abilities {
+
+}
+
+#exp div {
+	margin-left: 1em;
 }
 
 #kept-dice {
@@ -46,26 +82,10 @@ details > summary {
 	margin-bottom: .5em;
 }
 
-#sheet {
-	width: 800px;
-	margin: auto;
-}
 
 #abilities div {
 	margin-top: .25em;
 	font-size: 150%;
-}
-
-#abilities {
-	float: right;	
-}
-
-#path {
-	float: left;
-}
-
-#exp div {
-	margin-left: 1em;
 }
 
 .underline {
@@ -100,7 +120,7 @@ details > summary {
 .msg {
 	height: 35px;
 	font-size: 30px;
-	margin: 5px;
+	margin: auto;
 	color: white;
 	text-align: center;
 }
