@@ -1,0 +1,60 @@
+body {
+	background-color: lightgray;
+}
+
+#window {
+	border: red solid 3px;
+	padding: 5px;
+
+	display: grid;
+	grid-template-rows: [msg-start] 40px [sheet-start] 2fr [dice-start] 1fr;
+}
+
+#sheet {
+	border: orange solid 3px;
+	padding: 5px;
+
+	display: grid;
+	grid-template-columns: [path-start] 2fr [abilities-start] 2fr [buttons-start] 1fr;
+
+	/* use grid-template-rows if you want buttons to be underneath*/
+	/*grid-template-rows: [path-start] 2fr [buttons-start] 1fr;*/
+}
+
+#path {
+	border: yellow solid 3px;
+	padding: 5px;
+
+	grid-column: path-start / abilities-start;
+}
+
+#abilities {
+	border: green solid 3px;
+	padding: 5px;
+
+	grid-column: abilities-start / buttons-start;
+}
+
+#buttons {
+	border: blue solid 3px;
+	padding: 5px;
+
+	grid-column: buttons-start;
+	/*grid-row: buttons-start;*/
+}
+
+#dice {
+	border: purple solid 3px;
+	padding: 5px;
+}
+
+#rules {
+	border: black solid 3px;
+	padding: 5px;
+}
+
+li {
+	margin-top: 0;
+	margin-bottom: .25em;
+	font-size: 150%;
+}
