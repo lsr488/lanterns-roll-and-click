@@ -52,18 +52,26 @@ buttonChooseDice.addEventListener("click", function() {
 	if(checkChosenDiceExist(diceChoice)) {
 		chooseDice(diceChoice);
 		removeChosenDice(diceChoice);
+	} else {
+		displayNotificationForShortTime("One or more of your choices is invalid. Try again.");
 	}
 
 });
 
 function checkChosenDiceExist(diceChoice) {
+	let checked = 0;
 	for(let i = 0; i < diceChoice.length; i++) {
-		if(!rolls.includes(diceChoice[i])) {
-			return false;
-		} else {
+		if(rolls.includes(diceChoice[i])) {
+			checked++;
+		} 
+	}
+
+		if(checked === diceChoice.length) {
 			return true;
 		}
-	}
+		else {
+			return false;
+		}
 }
 
 function rollDice(numOfDice = "6") {
