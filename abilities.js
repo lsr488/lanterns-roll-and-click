@@ -38,7 +38,6 @@ function incDec(clickedElement) {
 	// clickedElement comes from useAbility in lanterns.js
 	let input = prompt('Which die do you want to increment up or down? Ex: "5 +" or "5 -"');
 	let incDecValue = [];
-	debugger
 
 	// allows Esc to cancel ability choice and un-uses ability circle
 	if(input === null) {
@@ -50,7 +49,14 @@ function incDec(clickedElement) {
 	input.sort();
 
 	// TODO needs to handle if only 1 element in array (ie, forgot +/-)
-	input[1] = Number.parseInt(input[1], 10);
+
+	if(input.length != 2) {
+		displayNotificationForShortTime("You forgot to include + or - a space.");
+		resetAbility(clickedElement);
+		return;
+	} else {
+		input[1] = Number.parseInt(input[1], 10);
+	}
 	
 	// checks if input exists in rolled dice
 	if(!rolls.includes(input[1])) {
@@ -81,7 +87,7 @@ function incDec(clickedElement) {
 		rolls.push(incDecValue[0]);
 		displayRolls();
 	} else {
-		displayNotificationForShortTime("You forgot to include + or -");
+		displayNotificationForShortTime("You forgot to include + or - or a space.");;
 		resetAbility(clickedElement);
 	}
 }
