@@ -114,6 +114,7 @@ function reRollOneDie(clickedElement) {
 	if(input.length > 1) {
 		displayNotificationForShortTime("You can only re-roll 1 die.");
 		resetAbility(clickedElement);
+		return;
 	} else {
 		input = [Number.parseInt(input, 10)];
 	}
