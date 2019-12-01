@@ -85,6 +85,10 @@ function displayNotificationForShortTime(notification) {
 	}, 4000);
 }
 
+function choiceDoesNotExistNotification() {
+	displayNotificationForShortTime("One or more of your choices doesn't exist. Try again.");
+}
+
 function isPathComplete(item) {
 	let parentId;
 	let pathObjectiveCombo;

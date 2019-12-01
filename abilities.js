@@ -167,7 +167,3 @@ function reRollAnyDice(clickedElement) {
 		}
 	}
 }
-
-function choiceDoesNotExistNotification() {
-	displayNotificationForShortTime("One or more of your choices doesn't exist. Try again.");
-}
