@@ -2,6 +2,12 @@ function flipAbility(clickedElement) {
 	let input = prompt("Which die do you want to flip? Input 1 through 6.");
 	let flippedValue = [];
 
+	if(input.length > 1) {
+		displayNotificationForShortTime("You may only choose 1 die to flip.");
+		resetAbility(clickedElement);
+		return;
+	}
+
 	input = Number.parseInt(input, 10);
 
 	if(!rolls.includes(input)) {
