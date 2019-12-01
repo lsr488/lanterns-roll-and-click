@@ -5,7 +5,7 @@ function flipAbility(clickedElement) {
 	input = Number.parseInt(input, 10);
 
 	if(!rolls.includes(input)) {
-		alert("Choice doesn't exist, try again.");
+		choiceDoesNotExistNotification();
 		resetAbility(clickedElement);
 	}	else {
 		if(input === 6) {
@@ -38,6 +38,7 @@ function incDec(clickedElement) {
 	// clickedElement comes from useAbility in lanterns.js
 	let input = prompt('Which die do you want to increment up or down? Ex: "5 +" or "5 -"');
 	let incDecValue = [];
+	debugger
 
 	// allows Esc to cancel ability choice and un-uses ability circle
 	if(input === null) {
@@ -47,18 +48,20 @@ function incDec(clickedElement) {
 
 	input = input.split(" ");
 	input.sort();
-	input[1] = Number.parseInt(input[1], 10);
 
+	// TODO needs to handle if only 1 element in array (ie, forgot +/-)
+	input[1] = Number.parseInt(input[1], 10);
+	
 	// checks if input exists in rolled dice
 	if(!rolls.includes(input[1])) {
-		alert("Choice doesn't exist. Try again.");
+		choiceDoesNotExistNotification();
 		resetAbility(clickedElement);
 		return;
 	}
 
 	// checks if incrementing 6; 7 doesn't exist
 	if(input[0] === "+" && input[1] === 6) {
-		alert("Choice doesn't exist. Try again.");
+		choiceDoesNotExistNotification();
 		resetAbility(clickedElement);
 		return;
 	}
@@ -78,7 +81,7 @@ function incDec(clickedElement) {
 		rolls.push(incDecValue[0]);
 		displayRolls();
 	} else {
-		alert("You forgot to include + or -");
+		displayNotificationForShortTime("You forgot to include + or -");
 		resetAbility(clickedElement);
 	}
 }
@@ -97,14 +100,14 @@ function reRollOneDie(clickedElement) {
 	input = input.split(",");
 
 	if(input.length > 1) {
-		alert("You can only re-roll 1 die.");
+		displayNotificationForShortTime("You can only re-roll 1 die.");
 		resetAbility(clickedElement);
 	} else {
 		input = [Number.parseInt(input, 10)];
 	}
 
 	if(!rolls.includes(input[0])) {
-		alert("Choice doesn't exist, try again.");
+		choiceDoesNotExistNotification();
 		resetAbility(clickedElement);
 	} else {
 		removeChosenDice(input);
@@ -141,7 +144,7 @@ function reRollAnyDice(clickedElement) {
 		}
 		
 		if(count != input.length) {
-			alert("One or more dice don't exist. Try again.");
+			choiceDoesNotExistNotification();
 			resetAbility(clickedElement);			
 		}
 
@@ -150,4 +153,8 @@ function reRollAnyDice(clickedElement) {
 			rollDice(input.length);
 		}
 	}
+}
+
+function choiceDoesNotExistNotification() {
+	displayNotificationForShortTime("One or more of your choices doesn't exist. Try again.");
 }
